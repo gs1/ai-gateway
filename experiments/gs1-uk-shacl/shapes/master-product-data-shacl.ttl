@@ -1,0 +1,4664 @@
+@prefix voc: <https://ref.gs1.org/voc/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+voc:GS1ClassValidationShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf rdf:type ;
+
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Class {?type} is not a valid GS1 Web Vocabulary class." ;
+
+        sh:select """
+            SELECT $this ?type
+            WHERE {
+                $this rdf:type ?type .
+
+                # Only check GS1 namespace
+                FILTER(STRSTARTS(STR(?type), "https://ref.gs1.org/voc/"))
+
+                # Check that the class does NOT exist in the ontology
+                FILTER NOT EXISTS {
+                    ?type a owl:Class .
+                }
+            }
+        """ ;
+    ] .
+
+# =================
+# Product Class Level 1
+# Key is the lowest class level with data type definition
+# Key has a sub class
+# Key has code list
+
+voc:ProductShape
+    a sh:NodeShape;
+    sh:targetClass voc:Product;
+    sh:property voc:AdditionalProductClassificationShape;
+    sh:property voc:AdditionalProductDescriptionShape;
+    sh:property voc:AdditiveShape;
+    sh:property voc:ApplicableProductsShape;
+    sh:property voc:AudioFileShape;
+    sh:property voc:AuthenticityShape;
+    sh:property voc:AwardPrizeShape;
+    sh:property voc:BrandShape;
+    sh:property voc:BrandOwnerShape;
+    sh:property voc:CertificationShape;
+    sh:property voc:ColourCodeShape;
+    sh:property voc:ColourDescriptionShape;
+    sh:property voc:CompulsoryAdditionalInformationPropertyShape;
+    sh:property voc:ConsumerHandlingStorageShape;
+    sh:property voc:ConsumerPackageDisclaimerShape;
+    sh:property voc:ConsumerRecyclingInstructionsShape;
+    sh:property voc:ConsumerSafetyInformationShape;
+    sh:property voc:ConsumerSalesConditionShape;
+    sh:property voc:ConsumerStorageInstructionsShape;
+    sh:property voc:ConsumerUsageInstructionsShape;
+    sh:property voc:CountryOfAssemblyShape;
+    sh:property voc:CountryOfLastProcessingShape;
+    sh:property voc:CountryOfOriginShape;
+    sh:property voc:CountryOfOriginStatementShape;
+    sh:property voc:CustomerSupportCentreShape;
+    sh:property voc:DependentProprietaryProductShape; 
+    sh:property voc:DescriptiveSizeShape;
+    sh:property voc:EquivalentProductShape;
+    sh:property voc:FunctionalNameShape;
+    sh:property voc:GpcCategoryCodeShape;
+    sh:property voc:GpcCategoryDescriptionShape;
+    sh:property voc:GrossAreaShape;
+    sh:property voc:GrossVolumeShape;
+    sh:property voc:GrossWeightShape;
+    sh:property voc:GrowingMethodShape;
+    sh:property voc:HealthClaimDescriptionShape;
+    sh:property voc:ImageShape;
+    sh:property voc:InPackageDepthShape;
+    sh:property voc:InPackageDiameterShape;
+    sh:property voc:InPackageHeightShape;
+    sh:property voc:InPackageWidthShape;
+    sh:property voc:IncludedAccessoriesShape;
+    sh:property voc:InstructionsForUseShape;
+    sh:property voc:IsProductRecalledShape;
+    sh:property voc:ManufacturerShape;
+    sh:property voc:ManufacturersWarrantyShape;
+    sh:property voc:ManufacturingPlantShape;
+    sh:property voc:MassPerUnitAreaShape;
+    sh:property voc:NetAreaShape;
+    sh:property voc:NetContentShape;
+    sh:property voc:NetWeightShape;
+    sh:property voc:OrganicClaimShape;
+    sh:property voc:OutOfPackageDepthShape;
+    sh:property voc:OutOfPackageDiameterShape;
+    sh:property voc:OutOfPackageHeightShape;
+    sh:property voc:OutOfPackageWidthShape;
+    sh:property voc:PackagingShape;
+    sh:property voc:PackagingMarkedLabelAccreditationShape;
+    sh:property voc:PrimaryAlternateProductShape;
+    sh:property voc:ProductDescriptionShape;
+    sh:property voc:ProductFeatureBenefitShape;
+    sh:property voc:ProductFormDescriptionShape;
+    sh:property voc:ProductIDShape;
+    sh:property voc:ProductMarketingMessageShape;
+    sh:property voc:ProductNameShape;
+    sh:property voc:ProductRangeShape;
+    sh:property voc:ProductionVariantDescriptionShape;
+    sh:property voc:ProductionVariantEffectiveDateTimeShape;
+    sh:property voc:ProvenanceStatementShape;
+    sh:property voc:ReferencedFileShape;
+    sh:property voc:RegulatedProductNameShape;
+    sh:property voc:RegulatoryInformationPropertyShape;
+    sh:property voc:ReplacedByProductShape;
+    sh:property voc:ReplacedProductShape;
+    sh:property voc:SizeCodeShape;
+    sh:property voc:SupplierSpecifiedMinimumConsumerStorageDaysShape;
+    sh:property voc:TargetMarketShape;
+    sh:property voc:VariantDescriptionShape;
+    sh:property voc:WarningCopyDescriptionShape;
+    sh:or (
+    voc:FoodBeverageTobaccoProductShape
+    voc:WearableProductShape
+    )
+.
+
+voc:FoodBeverageTobaccoProductShape
+    a sh:NodeShape;
+    sh:targetClass voc:FoodBeverageTobaccoProduct;
+    sh:property voc:AllergenSpecificationAgencyShape;
+    sh:property voc:AllergenSpecificationNameShape;
+    sh:property voc:AllergenStatementShape;
+    sh:property voc:BiotinPerNutrientBasisShape;
+    sh:property voc:CalciumPerNutrientBasisShape;
+    sh:property voc:CarbohydratesPerNutrientBasisShape;
+    sh:property voc:ChloridePerNutrientBasisShape;
+    sh:property voc:CholesterolPerNutrientBasisShape;
+    sh:property voc:ChromiumPerNutrientBasisShape;
+    sh:property voc:CopperPerNutrientBasisShape;
+    sh:property voc:DietCodeShape;
+    sh:property voc:DietTypeDescriptionShape;
+    sh:property voc:DrainedWeightShape;
+    sh:property voc:EnergyFromFatPerNutrientBasisShape;
+    sh:property voc:EnergyPerNutrientBasisShape;
+    sh:property voc:FatPerNutrientBasisShape;
+    sh:property voc:FibrePerNutrientBasisShape;
+    sh:property voc:FluoridePerNutrientBasisShape;
+    sh:property voc:FolicAcidPerNutrientBasisShape;
+    sh:property voc:FoodBeverageRefrigerationClaimShape;
+    sh:property voc:FoodBeverageTargetUseShape;
+    sh:property voc:GeneticallyModifiedDeclarationShape;
+    sh:property voc:HasAllergenShape;
+    sh:property voc:IngredientShape;
+    sh:property voc:IngredientOfConcernShape;
+    sh:property voc:IngredientStatementShape;
+    sh:property voc:IodinePerNutrientBasisShape;
+    sh:property voc:IronPerNutrientBasisShape;
+    sh:property voc:IrradiatedCodeShape;
+    sh:property voc:IsInstantShape;
+    sh:property voc:IsSlicedShape;
+    sh:property voc:JuiceContentPercentShape;
+    sh:property voc:MagnesiumPerNutrientBasisShape;
+    sh:property voc:ManganesePerNutrientBasisShape;
+    sh:property voc:MolybdenumPerNutrientBasisShape;
+    sh:property voc:MonounsaturatedFatPerNutrientBasisShape;
+    sh:property voc:NiacinPerNutrientBasisShape;
+    sh:property voc:NumberOfServingsPerPackageShape;
+    sh:property voc:NumberOfServingsPerPackageMeasurementPrecisionShape;
+    sh:property voc:NumberOfServingsRangeDescriptionShape;
+    sh:property voc:NutrientBasisQuantityShape;
+    sh:property voc:NutrientBasisQuantityTypeShape;
+    sh:property voc:NutrientMeasurementPrecisionShape;
+    sh:property voc:NutritionalClaimShape;
+    sh:property voc:NutritionalClaimStatementShape;
+    sh:property voc:PackagingMarkedDietAllergenTypeShape;
+    sh:property voc:PackagingMarkedFreeFromShape;
+    sh:property voc:PantothenicAcidPerNutrientBasisShape;
+    sh:property voc:PhosphorusPerNutrientBasisShape;
+    sh:property voc:PolyolsPerNutrientBasisShape;
+    sh:property voc:PolyunsaturatedFatPerNutrientBasisShape;
+    sh:property voc:PotassiumPerNutrientBasisShape;
+    sh:property voc:PreparationInformationShape;
+    sh:property voc:PreservationTechniqueShape;
+    sh:property voc:ProteinPerNutrientBasisShape;
+    sh:property voc:ReheatingClaimShape;
+    sh:property voc:RiboflavinPerNutrientBasisShape;
+    sh:property voc:SaltPerNutrientBasisShape;
+    sh:property voc:SaturatedFatPerNutrientBasisShape;
+    sh:property voc:SeleniumPerNutrientBasisShape;
+    sh:property voc:ServingSizeShape;
+    sh:property voc:ServingSizeDescriptionShape;
+    sh:property voc:ServingSuggestionShape;
+    sh:property voc:SodiumPerNutrientBasisShape;
+    sh:property voc:SourceAnimalShape;
+    sh:property voc:StarchPerNutrientBasisShape;
+    sh:property voc:SugarsPerNutrientBasisShape;
+    sh:property voc:ThiaminPerNutrientBasisShape;
+    sh:property voc:TransFatPerNutrientBasisShape;
+    sh:property voc:VitaminAPerNutrientBasisShape;
+    sh:property voc:VitaminB12PerNutrientBasisShape;
+    sh:property voc:VitaminB6PerNutrientBasisShape;
+    sh:property voc:VitaminCPerNutrientBasisShape;
+    sh:property voc:VitaminDPerNutrientBasisShape;
+    sh:property voc:VitaminEPerNutrientBasisShape;
+    sh:property voc:VitaminKPerNutrientBasisShape;
+    sh:property voc:ZincPerNutrientBasisShape;
+    sh:or (
+    voc:BeverageShape
+    voc:FruitsVegetablesShape
+    voc:MeatPoultryShape
+    voc:MilkButterCreamYogurtCheeseEggsSubstitutesShape
+    voc:SeafoodShape
+    )
+.
+
+voc:BeverageShape
+    a sh:NodeShape;
+    sh:targetClass voc:Beverage;
+    sh:property voc:AlcoholicBeverageSubregionShape;
+    sh:property voc:BeverageVintageShape;
+    sh:property voc:IsCarbonatedShape;
+    sh:property voc:IsDecaffeinatedShape;
+    sh:property voc:IsFromConcentrateShape;
+    sh:property voc:IsVintageShape;
+    sh:property voc:PercentageOfAlcoholByVolumeShape;
+    sh:property voc:SweetnessLevelOfAlcoholicBeverageShape;
+    sh:property voc:VintnerShape;
+.
+
+voc:FruitsVegetablesShape
+    a sh:NodeShape;
+    sh:targetClass voc:FruitsVegetables;
+    sh:property voc:IsPittedStonedShape;
+    sh:property voc:IsSeedlessShape;
+    sh:property voc:IsShelledPeeledShape;
+    sh:property voc:IsWashedReadyToEatShape;
+    sh:property voc:MaturationMethodShape;
+.
+
+voc:MeatPoultryShape
+    a sh:NodeShape;
+    sh:targetClass voc:MeatPoultry;
+    sh:property voc:AnatomicalFormShape;
+    sh:property voc:BonelessClaimShape;
+    sh:property voc:MeatPoultryTypeShape;
+    sh:property voc:MinimumMeatPoultryContentShape;
+.
+
+voc:MilkButterCreamYogurtCheeseEggsSubstitutesShape
+    a sh:NodeShape;
+    sh:targetClass voc:MilkButterCreamYogurtCheeseEggsSubstitutes;
+    sh:property voc:CheeseFirmnessShape;
+    sh:property voc:CheeseMaturationPeriodDescriptionShape;
+    sh:property voc:FatInMilkContentShape;
+    sh:property voc:FatPercentageInDryMatterShape;
+    sh:property voc:IsHomogenisedShape;
+    sh:property voc:IsRindEdibleShape;
+    sh:property voc:SharpnessOfCheeseShape;
+.
+
+voc:SeafoodShape
+    a sh:NodeShape;
+    sh:targetClass voc:Seafood;
+    sh:property voc:CatchZoneShape;
+    sh:property voc:FishTypeShape;
+    sh:property voc:FreshOrSeawaterFarmedShape;
+    sh:property voc:MinimumFishContentShape;
+.
+
+voc:WearableProductShape
+    a sh:NodeShape;
+    sh:targetClass voc:WearableProduct;
+    sh:property voc:ConsumerLifestageShape;
+    sh:property voc:IsPatternedShape;
+    sh:property voc:IsThermalShape;
+    sh:property voc:IsWaterproofShape;
+    sh:property voc:IsWearableItemDisposableShape;
+    sh:property voc:SeasonCalendarYearShape;
+    sh:property voc:SeasonNameShape;
+    sh:property voc:SeasonParameterShape;
+    sh:property voc:SizeShape;
+    sh:property voc:SportingActivityTypeShape;
+    sh:property voc:StyleDescriptionShape;
+    sh:property voc:TargetConsumerAgeShape;
+    sh:property voc:TargetConsumerGenderShape;
+    sh:property voc:TextileMaterialContentShape;
+    sh:node voc:ClothingShape;
+    sh:node voc:FootwearShape;
+.
+
+voc:ClothingShape
+    a sh:NodeShape;
+    sh:targetClass voc:Clothing;
+    sh:property voc:ClothingCutShape;
+    sh:property voc:CollarTypeShape;
+    sh:property voc:IsMaternityShape;
+    sh:property voc:TextileMaterialShape;
+.
+
+voc:FootwearShape
+    a sh:NodeShape;
+    sh:targetClass voc:Footwear;
+    sh:property voc:FootwearFasteningTypeShape;
+    sh:property voc:FootwearUpperTypeShape;
+    sh:property voc:UpperMaterialTypeShape;
+.
+
+# =================
+# Class Level 2
+
+voc:AdditionalProductClassificationDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:AdditionalProductClassificationDetails;
+    sh:property voc:AdditionalProductClassificationCodeShape;
+    sh:property voc:AdditionalProductClassificationCodeDescriptionShape;
+    sh:property voc:AdditionalProductClassificationValueShape;
+.
+
+voc:AdditiveDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:AdditiveDetails;
+    sh:property voc:AdditiveLevelOfContainmentShape;
+    sh:property voc:AdditiveNameShape;
+.
+
+voc:AllergenDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:AllergenDetails;
+    sh:property voc:AllergenLevelOfContainmentCodeShape;
+    sh:property voc:AllergenTypeShape;
+.
+
+voc:AuthenticityDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:AuthenticityDetails;
+    sh:property voc:AuthenticitySecurityFeatureInstructionsShape;
+    sh:property voc:AuthenticitySecurityFeatureInstructionsURLShape;
+    sh:property voc:AuthenticitySecurityFeatureRegularExpressionShape;
+    sh:property voc:AuthenticitySecurityFeatureTypeShape;
+    sh:property voc:AuthenticitySecurityFeatureValueShape;
+.
+
+voc:AwardPrizeDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:AwardPrizeDetails;
+    sh:property voc:AwardPrizeCodeShape;
+    sh:property voc:AwardPrizeCountryCodeShape;
+    sh:property voc:AwardPrizeDescriptionShape;
+    sh:property voc:AwardPrizeJuryShape;
+    sh:property voc:AwardPrizeNameShape;
+    sh:property voc:AwardPrizeYearShape;
+.
+
+voc:BrandNodeShape
+    a sh:NodeShape;
+    sh:targetClass voc:Brand;
+    sh:property voc:BrandNameShape;
+    sh:property voc:SubBrandNameShape;
+.
+
+voc:CertificationDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:CertificationDetails;
+    sh:property voc:CertificationAgencyShape; 
+    sh:property voc:CertificationAgencyURLShape;
+    sh:property voc:CertificationAuditDateShape;
+    sh:property voc:CertificationEndDateShape;
+    sh:property voc:CertificationIdentificationShape;
+    sh:property voc:CertificationStandardShape;
+    sh:property voc:CertificationStartDateShape;
+    sh:property voc:CertificationStatementShape;
+    sh:property voc:CertificationStatusShape;
+    sh:property voc:CertificationSubjectShape;
+    sh:property voc:CertificationTypeShape;
+    sh:property voc:CertificationURIShape;
+    sh:property voc:CertificationValueShape;
+    sh:property voc:InitialCertificationDateShape;
+.
+
+voc:ColourCodeDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:ColourCodeDetails;
+    sh:property voc:ColourCodeListShape;
+    sh:property voc:ColourCodeValueShape;
+.
+
+voc:CompulsoryAdditionalInformationPropertyShape
+    a sh:PropertyShape ;
+    sh:path voc:compulsoryAdditionalInformation ;
+    sh:node voc:CompulsoryAdditionalInformationShape ;
+.
+
+voc:CompulsoryAdditionalInformationShape
+    a sh:NodeShape;
+    sh:targetClass voc:CompulsoryAdditionalInformation;
+    sh:property voc:CompulsoryAdditionalLabelInformationShape;
+    sh:property voc:CompulsoryAdditionalLabelInformationTypeShape;
+.
+
+voc:CountryShape
+    a sh:NodeShape;
+    sh:targetClass voc:Country;
+    sh:property voc:CountryCodeShape;
+    sh:property voc:CountrySubdivisionCodeShape;
+.
+
+voc:DietTypeCodeDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:DietTypeCodeDetails;
+    sh:property voc:DietTypeShape;
+    sh:property voc:DietTypeSubcodeShape;
+.
+
+voc:FoodAndBeveragePreparationInformationShape
+    a sh:NodeShape;
+    sh:targetClass voc:FoodAndBeveragePreparationInformation;
+    sh:property voc:ConvenienceLevelPercentShape;
+    sh:property voc:ManufacturerPreparationCodeShape;
+    sh:property voc:MaximumOptimumConsumptionTemperatureShape;
+    sh:property voc:MinimumOptimumConsumptionTemperatureShape;
+    sh:property voc:PreparationCodeShape;
+    sh:property voc:PreparationConsumptionPrecautionsShape;
+    sh:property voc:PreparationInstructionsShape;
+    sh:property voc:YieldShape;
+.
+
+voc:FoodBeverageTobaccoIngredientDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:FoodBeverageTobaccoIngredientDetails;
+    sh:property voc:IngredientContentPercentageShape;
+    sh:property voc:IngredientNameShape;
+    sh:property voc:IngredientSequenceShape;
+.
+
+voc:NutritionMeasurementTypeShape
+    a sh:NodeShape;
+    sh:targetClass voc:NutritionMeasurementType;
+    sh:property voc:DailyValueIntakePercentShape;
+.
+
+voc:OrganizationShape
+    a sh:NodeShape;
+    sh:targetClass voc:Organization;
+.
+
+voc:OrganicClaimDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:OrganicClaimDetails;
+    sh:property voc:OrganicClaimAgencyShape;
+    sh:property voc:OrganicPercentClaimShape;
+.
+
+voc:PackagingDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:PackagingDetails;
+    sh:property voc:HasReturnablePackageDepositShape;
+    sh:property voc:PackagingFeatureShape;
+    sh:property voc:PackagingFunctionShape;
+    sh:property voc:PackagingMaterialShape;
+    sh:property voc:PackagingRecyclingProcessTypeShape;
+    sh:property voc:PackagingRecyclingSchemeShape;
+    sh:property voc:PackagingShapeShape;
+    sh:property voc:PackagingTypeShape;
+.
+
+voc:QuantitativeValueNodeShape
+    a sh:NodeShape;
+    sh:targetClass voc:QuantitativeValue;
+    sh:property voc:UnitCodeShape;
+    sh:property voc:ValueShape;
+.
+
+voc:ReferencedFileDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:ReferencedFileDetails;
+    sh:property voc:FileLanguageCodeShape;
+    sh:property voc:FilePixelHeightShape;
+    sh:property voc:FilePixelWidthShape;
+    sh:property voc:ReferencedFileEffectiveEndDateTimeShape;
+    sh:property voc:ReferencedFileEffectiveStartDateTimeShape;
+    sh:property voc:ReferencedFileSizeShape;
+    sh:property voc:ReferencedFileTypeShape;
+    sh:property voc:ReferencedFileURLShape;
+.
+
+voc:RegulatoryInformationPropertyShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryInformation ;
+    sh:node voc:RegulatoryInformationShape ;
+.
+
+voc:RegulatoryInformationShape
+    a sh:NodeShape;
+    sh:targetClass voc:RegulatoryInformation;
+    sh:property voc:RegulationTypeShape;
+    sh:property voc:RegulatoryActShape;
+    sh:property voc:RegulatoryIdentifierPropertyShape;
+.
+
+voc:SizeCodeDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:SizeCodeDetails;
+    sh:property voc:SizeCodeListCodeShape;
+    sh:property voc:SizeCodeValueShape;
+.
+
+voc:SizeDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:SizeDetails;
+    sh:property voc:SizeDimensionShape;
+    sh:property voc:SizeGroupShape;
+    sh:property voc:SizeSystemShape;
+    sh:property voc:SizeTypeShape;
+.
+
+voc:TargetMarketDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:TargetMarketDetails;
+    sh:property voc:ConsumerFirstAvailabilityDateTimeShape;
+    sh:property voc:TargetMarketCountriesShape;
+.
+
+voc:TextileMaterialDetailsShape
+    a sh:NodeShape;
+    sh:targetClass voc:TextileMaterialDetails;
+    sh:property voc:TextileMaterialDescriptionShape;
+    sh:property voc:TextileMaterialPercentageShape;
+    sh:property voc:TextileMaterialThreadCountShape;
+    sh:property voc:TextileMaterialWeightShape;
+.
+
+voc:WarrantyPromiseShape
+    a sh:NodeShape;
+    sh:targetClass voc:WarrantyPromise;
+    sh:property voc:DurationOfWarrantyShape;
+    sh:property voc:WarrantyScopeDescriptionShape;
+.
+
+# =================
+# Class Level 3
+
+voc:PackagingMaterialDetailsShape
+    a sh:NodeShape ;
+    sh:targetClass voc:PackagingMaterialDetails;
+    sh:property voc:PackagingMaterialCompositionQuantityShape;
+    sh:property voc:PackagingMaterialThicknessShape;
+    sh:property voc:PackagingMaterialTypeShape;
+.
+
+voc:RegulatoryIdentifierPropertyShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryIdentifier ;
+    sh:node voc:RegulatoryIdentifierShape ;
+.
+
+voc:RegulatoryIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass voc:RegulatoryIdentifier;
+    sh:property voc:ApplicableProductsShape;
+    sh:property voc:RegulatoryIdentifierTypeShape;
+    sh:property voc:RegulatoryInformationProviderShape;
+    sh:property voc:RegulatoryReferenceApplicabilityEndDateShape;
+    sh:property voc:RegulatoryReferenceApplicabilityStartDateShape;
+    sh:property voc:RegulatoryReferenceNumberShape;
+    sh:property voc:RegulatoryVerificationNumberShape;
+.
+
+voc:ProductYieldDetailsShape 
+    a sh:NodeShape ;
+    sh:targetClass voc:ProductYieldDetails ;
+    sh:property voc:ProductYieldShape;
+    sh:property voc:ProductYieldTypeShape;
+    sh:property voc:ProductYieldVariationPercentageShape;
+.
+
+voc:ReturnablePackageDepositDetailsShape
+    a sh:NodeShape ;
+    sh:targetClass voc:ReturnablePackageDepositDetails;
+    sh:property voc:ReturnablePackageDepositAmountShape;
+    sh:property voc:ReturnablePackageDepositRegionShape;
+.
+
+# =================
+# Property definitions in alphabetical order
+
+voc:AcceptedPaymentMethodShape
+    a sh:PropertyShape ;
+    sh:path voc:acceptedPaymentMethod ;
+    sh:name "acceptedPaymentMethod" ;
+    sh:node voc:PaymentMethodShape ;
+.
+
+voc:AdditionalLocationIDShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalLocationID ;
+    sh:name "additionalLocationID" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AdditionalProductClassificationCodeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalProductClassificationCodeDescription ;
+    sh:name "additionalProductClassificationCodeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AdditionalProductClassificationCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalProductClassificationCode ;
+    sh:name "additionalProductClassificationCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AdditionalProductClassificationShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalProductClassification ;
+    sh:name "additionalProductClassification" ;
+    sh:class voc:AdditionalProductClassificationDetails ;
+.
+
+voc:AdditionalProductClassificationValueShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalProductClassificationValue ;
+    sh:name "additionalProductClassificationValue" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AdditionalProductDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:additionalProductDescription ;
+    sh:name "additionalProductDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AdditiveLevelOfContainmentShape
+    a sh:PropertyShape ;
+    sh:path voc:additiveLevelOfContainment ;
+    sh:name "additiveLevelOfContainment" ;
+    sh:node voc:LevelOfContainmentCodeShape ;
+.
+
+voc:AdditiveNameShape
+    a sh:PropertyShape ;
+    sh:path voc:additiveName ;
+    sh:name "additiveName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AdditiveShape
+    a sh:PropertyShape ;
+    sh:path voc:additive ;
+    sh:name "additive" ;
+    sh:class voc:AdditiveDetails ;
+.
+
+voc:AddressCountryShape
+    a sh:PropertyShape ;
+    sh:path voc:addressCountry ;
+    sh:name "addressCountry" ;
+    sh:class voc:Country ;
+.
+
+voc:AddressLocalityShape
+    a sh:PropertyShape ;
+    sh:path voc:addressLocality ;
+    sh:name "addressLocality" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AddressRegionShape
+    a sh:PropertyShape ;
+    sh:path voc:addressRegion ;
+    sh:name "addressRegion" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AddressSuburbShape
+    a sh:PropertyShape ;
+    sh:path voc:addressSuburb ;
+    sh:name "addressSuburb" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AlcoholicBeverageSubregionShape
+    a sh:PropertyShape ;
+    sh:path voc:alcoholicBeverageSubregion ;
+    sh:name "alcoholicBeverageSubregion" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AllergenLevelOfContainmentCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:allergenLevelOfContainmentCode ;
+    sh:name "allergenLevelOfContainmentCode" ;
+    sh:node voc:LevelOfContainmentCodeShape ;
+.
+
+voc:AllergenSpecificationAgencyShape
+    a sh:PropertyShape ;
+    sh:path voc:allergenSpecificationAgency ;
+    sh:name "allergenSpecificationAgency" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AllergenSpecificationNameShape
+    a sh:PropertyShape ;
+    sh:path voc:allergenSpecificationName ;
+    sh:name "allergenSpecificationName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AllergenStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:allergenStatement ;
+    sh:name "allergenStatement" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AllergenTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:allergenType ;
+    sh:name "allergenType" ;
+    sh:node voc:AllergenTypeCodeShape ;
+.
+
+voc:AnatomicalFormShape
+    a sh:PropertyShape ;
+    sh:path voc:anatomicalForm ;
+    sh:name "anatomicalForm" ;
+    sh:node voc:AnatomicalFormCodeShape ;
+.
+
+voc:ApplicableProductsShape
+    a sh:PropertyShape ;
+    sh:path voc:applicableProducts ;
+    sh:name "applicableProducts" ;
+    sh:class voc:Product ;
+.
+
+voc:AudioFileShape
+    a sh:PropertyShape ;
+    sh:path voc:audioFile ;
+    sh:name "audioFile" ;
+    sh:class voc:ReferencedFileDetails ;
+.
+
+voc:AuthenticitySecurityFeatureInstructionsShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticitySecurityFeatureInstructions ;
+    sh:name "authenticitySecurityFeatureInstructions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AuthenticitySecurityFeatureInstructionsURLShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticitySecurityFeatureInstructionsURL ;
+    sh:name "authenticitySecurityFeatureInstructionsURL" ;
+    sh:datatype xsd:anyURI ;
+.
+
+voc:AuthenticitySecurityFeatureRegularExpressionShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticitySecurityFeatureRegularExpression ;
+    sh:name "authenticitySecurityFeatureRegularExpression" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AuthenticitySecurityFeatureTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticitySecurityFeatureType ;
+    sh:name "authenticitySecurityFeatureType" ;
+    sh:node voc:SecurityMarkingShape ;
+.
+
+voc:AuthenticitySecurityFeatureValueShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticitySecurityFeatureValue ;
+    sh:name "authenticitySecurityFeatureValue" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AuthenticityShape
+    a sh:PropertyShape ;
+    sh:path voc:authenticity ;
+    sh:name "authenticity" ;
+    sh:class voc:AuthenticityDetails ;
+.
+
+voc:AvailabilityEndsShape
+    a sh:PropertyShape ;
+    sh:path voc:availabilityEnds ;
+    sh:name "availabilityEnds" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:AvailabilityStartsShape
+    a sh:PropertyShape ;
+    sh:path voc:availabilityStarts ;
+    sh:name "availabilityStarts" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:AvailableAtOrFromShape
+    a sh:PropertyShape ;
+    sh:path voc:availableAtOrFrom ;
+    sh:name "availableAtOrFrom" ;
+    sh:class voc:Place ;
+.
+
+voc:AvailableLanguageShape
+    a sh:PropertyShape ;
+    sh:path voc:availableLanguage ;
+    sh:name "availableLanguage" ;
+    sh:class voc:LanguageCode ;
+.
+
+voc:AwardPrizeCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeCode ;
+    sh:name "awardPrizeCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AwardPrizeCountryCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeCountryCode ;
+    sh:name "awardPrizeCountryCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:AwardPrizeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeDescription ;
+    sh:name "awardPrizeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AwardPrizeJuryShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeJury ;
+    sh:name "awardPrizeJury" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AwardPrizeNameShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeName ;
+    sh:name "awardPrizeName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:AwardPrizeShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrize ;
+    sh:name "awardPrize" ;
+    sh:class voc:AwardPrizeDetails ;
+.
+
+voc:AwardPrizeYearShape
+    a sh:PropertyShape ;
+    sh:path voc:awardPrizeYear ;
+    sh:name "awardPrizeYear" ;
+    sh:datatype xsd:gYear ;
+.
+
+voc:BaseLocationShape
+    a sh:PropertyShape ;
+    sh:path voc:baseLocation ;
+    sh:name "baseLocation" ;
+    sh:class voc:Location ;
+.
+
+voc:BeverageVintageShape
+    a sh:PropertyShape ;
+    sh:path voc:beverageVintage ;
+    sh:name "beverageVintage" ;
+    sh:datatype xsd:string ;
+.
+
+voc:BiotinPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:biotinPerNutrientBasis ;
+    sh:name "biotinPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:BonelessClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:bonelessClaim ;
+    sh:name "bonelessClaim" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:BrandNameShape
+    a sh:PropertyShape ;
+    sh:path voc:brandName ;
+    sh:name "brandName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:BrandOwnerShape
+    a sh:PropertyShape ;
+    sh:path voc:brandOwner ;
+    sh:name "brandOwner" ;
+    sh:class voc:Organization ;
+.
+
+voc:BrandShape
+    a sh:PropertyShape ;
+    sh:path voc:brand ;
+    sh:name "brand" ;
+    sh:class voc:Brand ;
+.
+
+voc:CalciumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:calciumPerNutrientBasis ;
+    sh:name "calciumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:CarbohydratesPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:carbohydratesPerNutrientBasis ;
+    sh:name "carbohydratesPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:CatchZoneShape
+    a sh:PropertyShape ;
+    sh:path voc:catchZone ;
+    sh:name "catchZone" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:CertificationShape
+    a sh:PropertyShape ;
+    sh:path voc:certification ;
+    sh:name "certification" ;
+    sh:class voc:CertificationDetails ;
+.
+
+voc:CertificationAgencyShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationAgency;
+    sh:name "certificationAgency" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:CertificationAgencyURLShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationAgencyURL;
+    sh:name "certificationAgencyURL" ;
+    sh:class voc:Organization ;
+.
+
+voc:CertificationAuditDateShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationAuditDate;
+    sh:name "certificationAuditDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:CertificationEndDateShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationEndDate;
+    sh:name "certificationEndDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:CertificationIdentificationShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationIdentification;
+    sh:name "certificationIdentification" ;
+    sh:datatype xsd:string;
+.
+
+voc:CertificationStandardShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationStandard;
+    sh:name "certificationStandard" ;
+    sh:datatype rdf:langString;
+.
+
+voc:CertificationStartDateShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationStartDate;
+    sh:name "certificationStartDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:CertificationStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationStatement;
+    sh:name "certificationStatement" ;
+    sh:datatype rdf:langString;
+.
+
+voc:CertificationStatusShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationStatus;
+    sh:name "certificationStatus" ;
+    sh:node voc:CertificationStatusCodeShape ;
+.
+
+voc:CertificationSubjectShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationSubject;
+    sh:name "certificationSubject" ;
+    sh:class owl:Thing ;
+.
+
+voc:CertificationTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationType;
+    sh:name "certificationType" ;
+    sh:class owl:Thing ;
+.
+
+voc:CertificationURIShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationURI;
+    sh:name "certificationURI" ;
+    sh:datatype xsd:anyURI;
+.
+
+voc:CertificationValueShape
+    a sh:PropertyShape ;
+    sh:path voc:certificationValue ;
+    sh:name "certificationValue" ;
+    sh:datatype rdf:langString;
+.
+
+voc:CheeseFirmnessShape
+    a sh:PropertyShape ;
+    sh:path voc:cheeseFirmness ;
+    sh:name "cheeseFirmness" ;
+    sh:node voc:CheeseFirmnessCodeShape ;
+.
+
+voc:CheeseMaturationPeriodDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:cheeseMaturationPeriodDescription ;
+    sh:name "cheeseMaturationPeriodDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ChloridePerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:chloridePerNutrientBasis ;
+    sh:name "chloridePerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:CholesterolPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:cholesterolPerNutrientBasis ;
+    sh:name "cholesterolPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:ChromiumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:chromiumPerNutrientBasis ;
+    sh:name "chromiumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:ClothingCutShape
+    a sh:PropertyShape ;
+    sh:path voc:clothingCut ;
+    sh:name "clothingCut" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:CollarTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:collarType ;
+    sh:name "collarType" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ColourCodeListShape
+    a sh:PropertyShape ;
+    sh:path voc:colourCodeList ;
+    sh:name "colourCodeList" ;
+    sh:node voc:ColourCodeListCodeShape ;
+.
+
+voc:ColourCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:colourCode ;
+    sh:name "colourCode" ;
+    sh:class voc:ColourCodeDetails ;
+.
+
+voc:ColourCodeValueShape
+    a sh:PropertyShape ;
+    sh:path voc:colourCodeValue ;
+    sh:name "colourCodeValue" ;
+    sh:datatype xsd:string ;
+.
+
+voc:ColourDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:colourDescription ;
+    sh:name "colourDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:CompulsoryAdditionalLabelInformationShape
+    a sh:PropertyShape ;
+    sh:path voc:compulsoryAdditionalLabelInformation ;
+    sh:name "compulsoryAdditionalLabelInformation" ;
+    sh:datatype xsd:string ;
+.
+
+voc:CompulsoryAdditionalLabelInformationTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:compulsoryAdditionalLabelInformationType ;
+    sh:name "compulsoryAdditionalLabelInformationType" ;
+    sh:node voc:CompulsoryAdditionalLabelInformationTypeCodeShape ;
+.
+
+voc:ConsumerFirstAvailabilityDateTimeShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerFirstAvailabilityDateTime ;
+    sh:name "consumerFirstAvailabilityDateTime" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:ConsumerHandlingStorageShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerHandlingStorage ;
+    sh:name "consumerHandlingStorage" ;
+    sh:class voc:ReferencedFileDetails ;
+.
+
+voc:ConsumerLifestageShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerLifestage ;
+    sh:name "consumerLifestage" ;
+    sh:node voc:ConsumerLifestageCodeShape ;
+.
+
+voc:ConsumerPackageDisclaimerShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerPackageDisclaimer ;
+    sh:name "consumerPackageDisclaimer" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ConsumerRecyclingInstructionsShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerRecyclingInstructions ;
+    sh:name "consumerRecyclingInstructions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ConsumerSafetyInformationShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerSafetyInformation ;
+    sh:name "consumerSafetyInformation" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ConsumerSalesConditionShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerSalesCondition ;
+    sh:name "consumerSalesCondition" ;
+    sh:node voc:ConsumerSalesConditionsCodeShape ;
+.
+
+voc:ConvenienceLevelPercentShape
+    a sh:PropertyShape ;
+    sh:path voc:convenienceLevelPercent;
+    sh:name "convenienceLevelPercent" ;
+    sh:datatype xsd:float;
+.
+
+voc:CountryOfAssemblyShape
+    a sh:PropertyShape ;
+    sh:path voc:countryOfAssembly ;
+    sh:name "countryOfAssembly" ;
+    sh:class voc:Country ;
+.
+
+voc:CountryOfLastProcessingShape
+    a sh:PropertyShape ;
+    sh:path voc:countryOfLastProcessing ;
+    sh:name "countryOfLastProcessing" ;
+    sh:class voc:Country ;
+.
+
+voc:CountryOfOriginShape
+    a sh:PropertyShape ;
+    sh:path voc:countryOfOrigin;
+    sh:name "countryOfOrigin" ;
+    sh:class voc:Country ;
+.
+
+voc:CountryCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:countryCode;
+    sh:name "countryCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:CountrySubdivisionCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:countrySubdivisionCode;
+    sh:name "countrySubdivisionCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:CustomerSupportCentreShape
+    a sh:PropertyShape ;
+    sh:path voc:customerSupportCentre;
+    sh:name "customerSupportCentre" ;
+    sh:class voc:Organization;
+.
+
+voc:DependentProprietaryProductShape
+    a sh:PropertyShape ;
+    sh:path voc:dependentProprietaryProduct;
+    sh:name "dependentProprietaryProduct" ;
+    sh:class voc:Product;
+.
+
+voc:PackagingMarkedLabelAccreditationShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMarkedLabelAccreditation;
+    sh:name "packagingMarkedLabelAccreditation" ;
+    sh:node voc:PackagingMarkedLabelAccreditationCodeShape;
+.
+
+voc:ConsumerStorageInstructionsShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerStorageInstructions ;
+    sh:name "consumerStorageInstructions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ConsumerUsageInstructionsShape
+    a sh:PropertyShape ;
+    sh:path voc:consumerUsageInstructions ;
+    sh:name "consumerUsageInstructions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:CountryOfOriginStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:countryOfOriginStatement ;
+    sh:name "CountryOfOriginStatement" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ContactRoleCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:contactRoleCode ;
+    sh:name "contactRoleCode" ;
+    sh:class voc:ContactRoleTypeCode ;
+.
+
+voc:ContactTitleShape
+    a sh:PropertyShape ;
+    sh:path voc:contactTitle ;
+    sh:name "contactTitle" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ContactTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:contactType ;
+    sh:name "contactType" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ContainedInPlaceShape
+    a sh:PropertyShape ;
+    sh:path voc:containedInPlace ;
+    sh:name "containedInPlace" ;
+    sh:class voc:Place ;
+.
+
+voc:ContainsPlaceShape
+    a sh:PropertyShape ;
+    sh:path voc:containsPlace ;
+    sh:name "containsPlace" ;
+    sh:class voc:Place ;
+.
+
+voc:CopperPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:copperPerNutrientBasis ;
+    sh:name "copperPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:CountyCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:countyCode ;
+    sh:name "countyCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:CrossStreetShape
+    a sh:PropertyShape ;
+    sh:path voc:crossStreet ;
+    sh:name "crossStreet" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:DailyValueIntakePercentShape
+    a sh:PropertyShape ;
+    sh:path voc:dailyValueIntakePercent ;
+    sh:name "dailyValueIntakePercent" ;
+    sh:datatype xsd:float;
+.
+
+voc:DescriptiveSizeShape
+    a sh:PropertyShape ;
+    sh:path voc:descriptiveSize ;
+    sh:name "descriptiveSize" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:DietCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:dietCode ;
+    sh:name "dietCode" ;
+    sh:class voc:DietTypeCodeDetails ;
+.
+
+voc:DietTypeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:dietTypeDescription ;
+    sh:name "dietTypeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:DietTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:dietType ;
+    sh:name "dietType" ;
+    sh:node voc:DietTypeCodeShape ;
+.
+
+voc:DietTypeSubcodeShape
+    a sh:PropertyShape ;
+    sh:path voc:dietTypeSubcode ;
+    sh:name "dietTypeSubcode" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:DigitalAddressShape
+    a sh:PropertyShape ;
+    sh:path voc:digitalAddress ;
+    sh:name "digitalAddress" ;
+    sh:datatype xsd:string ;
+.
+
+voc:DigitalLocationNameShape
+    a sh:PropertyShape ;
+    sh:path voc:digitalLocationName ;
+    sh:name "digitalLocationName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:DrainedWeightShape
+    a sh:PropertyShape ;
+    sh:path voc:drainedWeight ;
+    sh:name "drainedWeight" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:DurationOfWarrantyShape
+    a sh:PropertyShape ;
+    sh:path voc:durationOfWarranty ;
+    sh:name "durationOfWarranty" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:EligibleQuantityMaximumShape
+    a sh:PropertyShape ;
+    sh:path voc:eligibleQuantityMaximum ;
+    sh:name "eligibleQuantityMaximum" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:EligibleQuantityMinimumShape
+    a sh:PropertyShape ;
+    sh:path voc:eligibleQuantityMinimum ;
+    sh:name "eligibleQuantityMinimum" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:EligibleQuantityShape
+    a sh:PropertyShape ;
+    sh:path voc:eligibleQuantity ;
+    sh:name "eligibleQuantity" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:EmailShape
+    a sh:PropertyShape ;
+    sh:path voc:email ;
+    sh:name "email" ;
+    sh:datatype xsd:string ;
+.
+
+voc:EnergyFromFatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:energyFromFatPerNutrientBasis ;
+    sh:name "energyFromFatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:EnergyPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:energyPerNutrientBasis ;
+    sh:name "energyPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:EquivalentProductShape
+    a sh:PropertyShape ;
+    sh:path voc:equivalentProduct ;
+    sh:name "equivalentProduct" ;
+    sh:class voc:Product ;
+.
+
+voc:FatInMilkContentShape
+    a sh:PropertyShape ;
+    sh:path voc:fatInMilkContent ;
+    sh:name "fatInMilkContent" ;
+    sh:datatype xsd:float ;
+.
+
+voc:FatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:fatPerNutrientBasis ;
+    sh:name "fatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:FatPercentageInDryMatterShape
+    a sh:PropertyShape ;
+    sh:path voc:fatpercentageInDryMatter ;
+    sh:name "fatpercentageInDryMatter" ;
+    sh:datatype xsd:float ;
+.
+
+voc:FibrePerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:fibrePerNutrientBasis ;
+    sh:name "fibrePerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:FileLanguageCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:fileLanguageCode ;
+    sh:name "fileLanguageCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:FilePixelHeightShape
+    a sh:PropertyShape ;
+    sh:path voc:filePixelHeight ;
+    sh:name "filePixelHeight" ;
+    sh:datatype xsd:integer ;
+.
+
+voc:FilePixelWidthShape
+    a sh:PropertyShape ;
+    sh:path voc:filePixelWidth ;
+    sh:name "filePixelWidth" ;
+    sh:datatype xsd:integer ;
+.
+
+voc:FishTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:fishType ;
+    sh:name "fishType" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:FluoridePerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:fluoridePerNutrientBasis ;
+    sh:name "fluoridePerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:FolicAcidPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:folicAcidPerNutrientBasis ;
+    sh:name "folicAcidPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:FoodBeverageRefrigerationClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:foodBeverageRefrigerationClaim ;
+    sh:name "foodBeverageRefrigerationClaim" ;
+    sh:node voc:FoodBeverageRefrigerationClaimCodeShape ;
+.
+
+voc:FoodBeverageTargetUseShape
+    a sh:PropertyShape ;
+    sh:path voc:foodBeverageTargetUse ;
+    sh:name "foodBeverageTargetUse" ;
+    sh:node voc:FoodBeverageTargetUseCodeShape ;
+.
+
+voc:FootwearFasteningTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:footwearFasteningType ;
+    sh:name "footwearFasteningType" ;
+    sh:node voc:FootwearFasteningTypeCodeShape ;
+.
+
+voc:FootwearUpperTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:footwearUpperType ;
+    sh:name "footwearUpperType" ;
+    sh:node voc:UpperTypeCodeShape ;
+.
+
+voc:FreshOrSeawaterFarmedShape
+    a sh:PropertyShape ;
+    sh:path voc:freshOrSeawaterFarmed ;
+    sh:name "freshOrSeawaterFarmed" ;
+    sh:node voc:FreshOrSeawaterFarmedCodeShape ;
+.
+
+voc:FunctionalNameShape
+    a sh:PropertyShape ;
+    sh:path voc:functionalName ;
+    sh:name "functionalName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:GeneticallyModifiedDeclarationShape
+    a sh:PropertyShape ;
+    sh:path voc:geneticallyModifiedDeclaration ;
+    sh:name "geneticallyModifiedDeclaration" ;
+    sh:node voc:LevelOfContainmentCodeShape ;
+.
+
+voc:GeoShape
+    a sh:PropertyShape ;
+    sh:path voc:geo ;
+    sh:name "geo" ;
+    sh:class voc:GeoCoordinates ;
+.
+
+voc:GpcCategoryCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:gpcCategoryCode ;
+    sh:name "gpcCategoryCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:GpcCategoryDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:gpcCategoryDescription ;
+    sh:name "gpcCategoryDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:GrossAreaShape
+    a sh:PropertyShape ;
+    sh:path voc:grossArea ;
+    sh:name "grossArea" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:GrossVolumeShape
+    a sh:PropertyShape ;
+    sh:path voc:grossVolume ;
+    sh:name "grossVolume" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:GrossWeightShape
+    a sh:PropertyShape ;
+    sh:path voc:grossWeight ;
+    sh:name "grossWeight" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:GrowingMethodShape
+    a sh:PropertyShape ;
+    sh:path voc:growingMethod ;
+    sh:name "growingMethod" ;
+    sh:node voc:GrowingMethodCodeShape ;
+.
+
+voc:HasAllergenShape
+    a sh:PropertyShape ;
+    sh:path voc:hasAllergen ;
+    sh:name "hasAllergen" ;
+    sh:class voc:AllergenDetails ;
+.
+
+voc:HasReturnablePackageDepositShape
+    a sh:PropertyShape ;
+    sh:path voc:hasReturnablePackageDeposit;
+    sh:name "hasReturnablePackageDeposit" ;
+    sh:class voc:ReturnablePackageDepositDetails ;
+.
+
+voc:HealthClaimDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:healthClaimDescription ;
+    sh:name "healthClaimDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ImageShape
+    a sh:PropertyShape ;
+    sh:path voc:image ;
+    sh:name "image" ;
+    sh:class voc:ReferencedFileDetails ;
+.
+
+voc:InitialCertificationDateShape
+    a sh:PropertyShape ;
+    sh:path voc:initialCertificationDate;
+    sh:name "initialCertificationDate" ;
+    sh:datatype xsd:date;
+.
+
+voc:InPackageDepthShape
+    a sh:PropertyShape ;
+    sh:path voc:inPackageDepth ;
+    sh:name "inPackageDepth" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:InPackageDiameterShape
+    a sh:PropertyShape ;
+    sh:path voc:inPackageDiameter ;
+    sh:name "inPackageDiameter" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:InPackageHeightShape
+    a sh:PropertyShape ;
+    sh:path voc:inPackageHeight ;
+    sh:name "inPackageHeight" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:InPackageWidthShape
+    a sh:PropertyShape ;
+    sh:path voc:inPackageWidth ;
+    sh:name "inPackageWidth" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:IncludedAccessoriesShape
+    a sh:PropertyShape ;
+    sh:path voc:includedAccessories ;
+    sh:name "includedAccessories" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:IngredientContentPercentageShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredientContentPercentage ;
+    sh:name "ingredientContentPercentage" ;
+    sh:datatype xsd:float;
+.
+
+voc:IngredientNameShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredientName ;
+    sh:name "ingredientName" ;
+    sh:datatype rdf:langString;
+.
+
+voc:IngredientOfConcernShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredientOfConcern ;
+    sh:name "ingredientOfConcern" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:IngredientSequenceShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredientSequence ;
+    sh:name "ingredientSequence" ;
+    sh:datatype xsd:integer ;
+.
+
+voc:IngredientShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredient ;
+    sh:name "ingredient" ;
+    sh:class voc:FoodBeverageTobaccoIngredientDetails ;
+.
+
+voc:IngredientStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:ingredientStatement ;
+    sh:name "ingredientStatement" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:InstructionsForUseShape
+    a sh:PropertyShape ;
+    sh:path voc:instructionsForUse ;
+    sh:name "instructionsForUse" ;
+    sh:class voc:ReferencedFileDetails ;
+.
+
+voc:IodinePerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:iodinePerNutrientBasis ;
+    sh:name "iodinePerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:IronPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:ironPerNutrientBasis ;
+    sh:name "ironPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:IrradiatedCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:irradiatedCode ;
+    sh:name "irradiatedCode" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsCarbonatedShape
+    a sh:PropertyShape ;
+    sh:path voc:isCarbonated ;
+    sh:name "isCarbonated" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsDecaffeinatedShape
+    a sh:PropertyShape ;
+    sh:path voc:isDecaffeinated ;
+    sh:name "isDecaffeinated" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsFromConcentrateShape
+    a sh:PropertyShape ;
+    sh:path voc:isFromConcentrate ;
+    sh:name "isFromConcentrate" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsHomogenisedShape
+    a sh:PropertyShape ;
+    sh:path voc:isHomogenised ;
+    sh:name "isHomogenised" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsInstantShape
+    a sh:PropertyShape ;
+    sh:path voc:isInstant ;
+    sh:name "isInstant" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsMaternityShape
+    a sh:PropertyShape ;
+    sh:path voc:isMaternity ;
+    sh:name "isMaternity" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsPatternedShape
+    a sh:PropertyShape ;
+    sh:path voc:isPatterned ;
+    sh:name "isPatterned" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsPittedStonedShape
+    a sh:PropertyShape ;
+    sh:path voc:isPittedStoned ;
+    sh:name "isPittedStoned" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsProductRecalledShape
+    a sh:PropertyShape ;
+    sh:path voc:isProductRecalled ;
+    sh:name "isProductRecalled" ;
+    sh:datatype xsd:boolean ;
+.
+
+voc:IsRindEdibleShape
+    a sh:PropertyShape ;
+    sh:path voc:isRindEdible ;
+    sh:name "isRindEdible" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsSeedlessShape
+    a sh:PropertyShape ;
+    sh:path voc:isSeedless ;
+    sh:name "isSeedless" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsShelledPeeledShape
+    a sh:PropertyShape ;
+    sh:path voc:isShelledPeeled ;
+    sh:name "isShelledPeeled" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsSlicedShape
+    a sh:PropertyShape ;
+    sh:path voc:isSliced ;
+    sh:name "isSliced" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsThermalShape
+    a sh:PropertyShape ;
+    sh:path voc:isThermal ;
+    sh:name "isThermal" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsVintageShape
+    a sh:PropertyShape ;
+    sh:path voc:isVintage ;
+    sh:name "isVintage" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsWashedReadyToEatShape
+    a sh:PropertyShape ;
+    sh:path voc:isWashedReadyToEat ;
+    sh:name "isWashedReadyToEat" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsWaterproofShape
+    a sh:PropertyShape ;
+    sh:path voc:isWaterproof ;
+    sh:name "isWaterproof" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:IsWearableItemDisposableShape
+    a sh:PropertyShape ;
+    sh:path voc:isWearableItemDisposable ;
+    sh:name "isWearableItemDisposable" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:ItemOfferedShape
+    a sh:PropertyShape ;
+    sh:path voc:itemOffered ;
+    sh:name "itemOffered" ;
+    sh:class voc:Product ;
+.
+
+voc:JuiceContentPercentShape
+    a sh:PropertyShape ;
+    sh:path voc:juiceContentPercent ;
+    sh:name "juiceContentPercent" ;
+    sh:datatype xsd:float ;
+.
+
+voc:LeasedFromShape
+    a sh:PropertyShape ;
+    sh:path voc:leasedFrom ;
+    sh:name "leasedFrom" ;
+    sh:class voc:Organization ;
+.
+
+voc:LeasedToShape
+    a sh:PropertyShape ;
+    sh:path voc:leasedTo ;
+    sh:name "leasedTo" ;
+    sh:class voc:Organization ;
+.
+
+voc:LocationDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:locationDescription ;
+    sh:name "locationDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:LocationGLNShape
+    a sh:PropertyShape ;
+    sh:path voc:locationGLN ;
+    sh:name "locationGLN" ;
+    sh:datatype xsd:string ;
+.
+
+voc:LocationHistoryShape
+    a sh:PropertyShape ;
+    sh:path voc:locationHistory ;
+    sh:name "locationHistory" ;
+    sh:class voc:LocationHistory ;
+.
+
+voc:LocationOpeningDateShape
+    a sh:PropertyShape ;
+    sh:path voc:locationOpeningDate ;
+    sh:name "locationOpeningDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:LocationRoleShape
+    a sh:PropertyShape ;
+    sh:path voc:locationRole ;
+    sh:name "locationRole" ;
+    sh:class voc:LocationRoleType ;
+.
+
+voc:MagnesiumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:magnesiumPerNutrientBasis ;
+    sh:name "magnesiumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:ManagedForShape
+    a sh:PropertyShape ;
+    sh:path voc:managedFor ;
+    sh:name "managedFor" ;
+    sh:class voc:Organization ;
+.
+
+voc:ManganesePerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:manganesePerNutrientBasis ;
+    sh:name "manganesePerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:ManufacturerPreparationCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:manufacturerPreparationCode ;
+    sh:name "manufacturerPreparationCode" ;
+    sh:node voc:PreparationTypeCodeShape ;
+.
+
+voc:MaximumOptimumConsumptionTemperatureShape
+    a sh:PropertyShape ;
+    sh:path voc:maximumOptimumConsumptionTemperature;
+    sh:name "maximumOptimumConsumptionTemperature" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:ManufacturerShape
+    a sh:PropertyShape ;
+    sh:path voc:manufacturer ;
+    sh:name "manufacturer" ;
+    sh:class voc:Organization ;
+.
+
+voc:ManufacturersWarrantyShape
+    a sh:PropertyShape ;
+    sh:path voc:manufacturersWarranty ;
+    sh:name "manufacturersWarranty" ;
+    sh:class voc:WarrantyPromise ;
+.
+
+voc:ManufacturingPlantShape
+    a sh:PropertyShape ;
+    sh:path voc:manufacturingPlant ;
+    sh:name "manufacturingPlant" ;
+    sh:class voc:Organization ;
+.
+
+voc:MassPerUnitAreaShape
+    a sh:PropertyShape ;
+    sh:path voc:massPerUnitArea ;
+    sh:name "massPerUnitArea" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:MaturationMethodShape
+    a sh:PropertyShape ;
+    sh:path voc:maturationMethod ;
+    sh:name "maturationMethod" ;
+    sh:node voc:MaturationMethodCodeShape ;
+.
+
+voc:MeatPoultryTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:meatPoultryType ;
+    sh:name "meatPoultryType" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:MinimumOptimumConsumptionTemperatureShape
+    a sh:PropertyShape ;
+    sh:path voc:minimumOptimumConsumptionTemperature;
+    sh:name "minimumOptimumConsumptionTemperature" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:MinimumFishContentShape
+    a sh:PropertyShape ;
+    sh:path voc:minimumFishContent ;
+    sh:name "minimumFishContent" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:MinimumMeatPoultryContentShape
+    a sh:PropertyShape ;
+    sh:path voc:minimumMeatPoultryContent ;
+    sh:name "minimumMeatPoultryContent" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:MinimumOptimumConsumptionTemperatureShape
+    a sh:PropertyShape ;
+    sh:path voc:minimumOptimumConsumptionTemperature ;
+    sh:name "minimumOptimumConsumptionTemperature" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:MolybdenumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:molybdenumPerNutrientBasis ;
+    sh:name "molybdenumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:MonounsaturatedFatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:monounsaturatedFatPerNutrientBasis ;
+    sh:name "monounsaturatedFatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:NetAreaShape
+    a sh:PropertyShape ;
+    sh:path voc:netArea ;
+    sh:name "netArea" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:NetContentShape
+    a sh:PropertyShape ;
+    sh:path voc:netContent ;
+    sh:name "netContent" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:NetWeightShape
+    a sh:PropertyShape ;
+    sh:path voc:netWeight ;
+    sh:name "netWeight" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:NiacinPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:niacinPerNutrientBasis ;
+    sh:name "niacinPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:NumberOfServingsPerPackageMeasurementPrecisionShape
+    a sh:PropertyShape ;
+    sh:path voc:numberOfServingsPerPackageMeasurementPrecision ;
+    sh:name "numberOfServingsPerPackageMeasurementPrecision" ;
+    sh:node voc:MeasurementPrecisionCodeShape ;
+.
+
+voc:NumberOfServingsPerPackageShape
+    a sh:PropertyShape ;
+    sh:path voc:numberOfServingsPerPackage ;
+    sh:name "numberOfServingsPerPackage" ;
+    sh:datatype xsd:float ;
+.
+
+voc:NumberOfServingsRangeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:numberOfServingsRangeDescription ;
+    sh:name "numberOfServingsRangeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:NutrientBasisQuantityShape
+    a sh:PropertyShape ;
+    sh:path voc:nutrientBasisQuantity ;
+    sh:name "nutrientBasisQuantity" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:NutrientBasisQuantityTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:nutrientBasisQuantityType ;
+    sh:name "nutrientBasisQuantityType" ;
+    sh:node voc:NutrientBasisQuantityCodeShape ;
+.
+
+voc:NutrientMeasurementPrecisionShape
+    a sh:PropertyShape ;
+    sh:path voc:nutrientMeasurementPrecision ;
+    sh:name "nutrientMeasurementPrecision" ;
+    sh:node voc:MeasurementPrecisionCodeShape ;
+.
+
+voc:NutritionalClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:nutritionalClaim ;
+    sh:name "nutritionalClaim" ;
+    sh:node voc:NutritionalClaimTypeCodeShape ;
+.
+
+voc:NutritionalClaimStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:nutritionalClaimStatement ;
+    sh:name "nutritionalClaimStatement" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:OccupiedByShape
+    a sh:PropertyShape ;
+    sh:path voc:occupiedBy ;
+    sh:name "occupiedBy" ;
+    sh:class voc:Organization ;
+.
+
+voc:OfferDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:offerDescription ;
+    sh:name "offerDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:OfferDiscountShape
+    a sh:PropertyShape ;
+    sh:path voc:offerDiscount ;
+    sh:name "offerDiscount" ;
+    sh:class voc:PriceSpecification ;
+.
+
+voc:OfferRedemptionURLShape
+    a sh:PropertyShape ;
+    sh:path voc:offerRedemptionURL ;
+    sh:name "offerRedemptionURL" ;
+    sh:datatype xsd:anyURI ;
+.
+
+voc:OrganicClaimAgencyShape
+    a sh:PropertyShape ;
+    sh:path voc:organicClaimAgency ;
+    sh:name "organicClaimAgency" ;
+    sh:node voc:OrganicClaimAgencyCodeShape ;
+.
+
+voc:OrganicClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:organicClaim ;
+    sh:name "organicClaim" ;
+    sh:class voc:OrganicClaimDetails ;
+.
+
+voc:OrganicPercentClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:organicPercentClaim ;
+    sh:name "organicPercentClaim" ;
+    sh:datatype xsd:float;
+.
+
+voc:OutOfPackageDepthShape
+    a sh:PropertyShape ;
+    sh:path voc:outOfPackageDepth ;
+    sh:name "outOfPackageDepth" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:OutOfPackageDiameterShape
+    a sh:PropertyShape ;
+    sh:path voc:outOfPackageDiameter ;
+    sh:name "outOfPackageDiameter" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:OutOfPackageHeightShape
+    a sh:PropertyShape ;
+    sh:path voc:outOfPackageHeight ;
+    sh:name "outOfPackageHeight" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:OutOfPackageWidthShape
+    a sh:PropertyShape ;
+    sh:path voc:outOfPackageWidth ;
+    sh:name "outOfPackageWidth" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:PackagingShape
+    a sh:PropertyShape ;
+    sh:path voc:packaging ;
+    sh:name "packaging" ;
+    sh:class voc:PackagingDetails ;
+.
+
+voc:PackagingMaterialCompositionQuantityShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMaterialCompositionQuantity ;
+    sh:name "packagingMaterialCompositionQuantity" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:PackagingMaterialThicknessShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMaterialThickness ;
+    sh:name "packagingMaterialThickness" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:PackagingMaterialTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMaterialType ;
+    sh:name "packagingMaterialType" ;
+    sh:node voc:PackagingMaterialTypeCodeShape ;
+.
+
+voc:PackagingMarkedDietAllergenTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMarkedDietAllergenType ;
+    sh:name "packagingMarkedDietAllergenType" ;
+    sh:node voc:PackagingMarkedDietAllergenCodeShape ;
+.
+
+voc:PackagingMarkedFreeFromShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMarkedFreeFrom ;
+    sh:name "packagingMarkedFreeFrom" ;
+    sh:node voc:PackagingMarkedFreeFromCodeShape ;
+.
+
+voc:PackagingFeatureShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingFeature;
+    sh:name "packagingFeature" ;
+    sh:node voc:packagingFeatureCodeShape;
+.
+
+voc:PackagingFunctionShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingFunction;
+    sh:name "packagingFunction" ;
+    sh:node voc:PackagingFunctionCodeShape;
+.
+
+voc:PackagingMaterialShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingMaterial;
+    sh:name "packagingMaterial" ;
+    sh:class voc:PackagingMaterialDetails;
+.
+
+voc:PackagingRecyclingProcessTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingRecyclingProcessType;
+    sh:name "packagingRecyclingProcessType" ;
+    sh:node voc:PackagingRecyclingProcessTypeCodeShape;
+.
+
+voc:PackagingRecyclingSchemeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingRecyclingScheme;
+    sh:name "packagingRecyclingScheme" ;
+    sh:node voc:PackagingRecyclingSchemeCodeShape;
+.
+
+voc:PackagingShapeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingShape;
+    sh:name "packagingShape" ;
+    sh:node voc:PackagingShapeCodeShape;
+.
+
+voc:PackagingTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:packagingType;
+    sh:name "packagingType" ;
+    sh:datatype xsd:string ;
+.
+
+voc:PantothenicAcidPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:pantothenicAcidPerNutrientBasis ;
+    sh:name "pantothenicAcidPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:PaymentTermsShape
+    a sh:PropertyShape ;
+    sh:path voc:paymentTerms ;
+    sh:name "paymentTerms" ;
+    sh:datatype xsd:string ;
+.
+
+voc:PercentageOfAlcoholByVolumeShape
+    a sh:PropertyShape ;
+    sh:path voc:percentageOfAlcoholByVolume ;
+    sh:name "percentageOfAlcoholByVolume" ;
+    sh:datatype xsd:float ;
+.
+
+voc:PhosphorusPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:phosphorusPerNutrientBasis ;
+    sh:name "phosphorusPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:PhysicalLocationNameShape
+    a sh:PropertyShape ;
+    sh:path voc:physicalLocationName ;
+    sh:name "physicalLocationName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:PolyolsPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:polyolsPerNutrientBasis ;
+    sh:name "polyolsPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:PolyunsaturatedFatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:polyunsaturatedFatPerNutrientBasis ;
+    sh:name "polyunsaturatedFatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:PostOfficeBoxNumberShape
+    a sh:PropertyShape ;
+    sh:path voc:postOfficeBoxNumber ;
+    sh:name "postOfficeBoxNumber" ;
+    sh:datatype xsd:string ;
+.
+
+voc:PostalCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:postalCode ;
+    sh:name "postalCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:PostalNameShape
+    a sh:PropertyShape ;
+    sh:path voc:postalName ;
+    sh:name "postalName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:PotassiumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:potassiumPerNutrientBasis ;
+    sh:name "potassiumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:PreparationCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:preparationCode ;
+    sh:name "preparationCode" ;
+    sh:node voc:PreparationTypeCodeShape ;
+.
+
+voc:PreparationConsumptionPrecautionsShape
+    a sh:PropertyShape ;
+    sh:path voc:preparationConsumptionPrecautions ;
+    sh:name "preparationConsumptionPrecautions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:PreparationInformationShape
+    a sh:PropertyShape ;
+    sh:path voc:preparationInformation ;
+    sh:name "preparationInformation" ;
+    sh:class voc:FoodAndBeveragePreparationInformation ;
+.
+
+voc:PreparationInstructionsShape
+    a sh:PropertyShape ;
+    sh:path voc:preparationInstructions ;
+    sh:name "preparationInstructions" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:PreservationTechniqueShape
+    a sh:PropertyShape ;
+    sh:path voc:preservationTechnique ;
+    sh:name "preservationTechnique" ;
+    sh:class voc:PreservationTechniqueCode ;
+.
+
+voc:PriceSpecificationShape
+    a sh:PropertyShape ;
+    sh:path voc:priceSpecification ;
+    sh:name "priceSpecification" ;
+    sh:class voc:PriceSpecification ;
+.
+
+voc:PrimaryAlternateProductShape
+    a sh:PropertyShape ;
+    sh:path voc:primaryAlternateProduct ;
+    sh:name "primaryAlternateProduct" ;
+    sh:class voc:Product ;
+.
+
+voc:PrimaryLocationOfShape
+    a sh:PropertyShape ;
+    sh:path voc:primaryLocationOf ;
+    sh:name "primaryLocationOf" ;
+    sh:class voc:Place ;
+.
+
+voc:ProductDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:productDescription ;
+    sh:name "productDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductFeatureBenefitShape
+    a sh:PropertyShape ;
+    sh:path voc:productFeatureBenefit ;
+    sh:name "productFeatureBenefit" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductFormDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:productFormDescription ;
+    sh:name "productFormDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductIDShape
+    a sh:PropertyShape ;
+    sh:path voc:productID ;
+    sh:name "productID" ;
+    sh:datatype xsd:string ;
+.
+
+voc:ProductMarketingMessageShape
+    a sh:PropertyShape ;
+    sh:path voc:productMarketingMessage ;
+    sh:name "productMarketingMessage" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductNameShape
+    a sh:PropertyShape ;
+    sh:path voc:productName ;
+    sh:name "productName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductRangeShape
+    a sh:PropertyShape ;
+    sh:path voc:productRange ;
+    sh:name "productRange" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductionVariantDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:productionVariantDescription ;
+    sh:name "productionVariantDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ProductionVariantEffectiveDateTimeShape
+    a sh:PropertyShape ;
+    sh:path voc:productionVariantEffectiveDateTime ;
+    sh:name "productionVariantEffectiveDateTime" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:ProductYieldShape
+    a sh:PropertyShape ;
+    sh:path voc:productYield;
+    sh:name "productYield" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:ProductYieldTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:productYieldType;
+    sh:name "productYieldType" ;
+    sh:node voc:ProductYieldTypeCodeShape ;
+.
+
+voc:ProductYieldVariationPercentageShape
+    a sh:PropertyShape ;
+    sh:path voc:productYieldVariationPercentage;
+    sh:name "productYieldVariationPercentage" ;
+    sh:datatype xsd:float;
+.
+
+voc:ProteinPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:proteinPerNutrientBasis ;
+    sh:name "proteinPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:ProvenanceStatementShape
+    a sh:PropertyShape ;
+    sh:path voc:provenanceStatement ;
+    sh:name "provenanceStatement" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:QuantitativeValueShape
+    a sh:PropertyShape ;
+    sh:path voc:QuantitativeValue ;
+    sh:name "QuantitativeValue" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:RegulatoryIdentifierTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryIdentifierType ;
+    sh:name "regulatoryIdentifierType " ;
+    sh:node voc:RegulatoryIdentifierTypeCodeShape ;
+.
+
+voc:RegulatoryInformationProviderShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryInformationProvider;
+    sh:name "regulatoryInformationProvider" ;
+    sh:class voc:Organization ;
+.
+
+voc:RegulatoryReferenceApplicabilityEndDateShape 
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryReferenceApplicabilityEndDate;
+    sh:name "regulatoryReferenceApplicabilityEndDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:RegulatoryReferenceApplicabilityStartDateShape 
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryReferenceApplicabilityStartDate;
+    sh:name "regulatoryReferenceApplicabilityStartDate" ;
+    sh:datatype xsd:date ;
+.
+
+voc:RegulatoryReferenceNumberShape 
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryReferenceNumber;
+    sh:name "regulatoryReferenceNumber" ;
+    sh:datatype xsd:string ;
+.
+
+voc:RegulatoryVerificationNumberShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryVerificationNumber;
+    sh:name "regulatoryVerificationNumber" ;
+    sh:datatype xsd:string ;
+.
+
+voc:ReturnablePackageDepositAmountShape
+    a sh:PropertyShape ;
+    sh:path voc:returnablePackageDepositAmount;
+    sh:name "returnablePackageDepositAmount" ;
+    sh:class voc:PriceSpecification;
+.
+
+voc:ReturnablePackageDepositRegionShape
+    a sh:PropertyShape ;
+    sh:path voc:returnablePackageDepositRegion;
+    sh:name "returnablePackageDepositRegion" ;
+    sh:class voc:Country;
+.
+
+voc:ReferencedFileEffectiveEndDateTimeShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFileEffectiveEndDateTime ;
+    sh:name "referencedFileEffectiveEndDateTime" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:ReferencedFileEffectiveStartDateTimeShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFileEffectiveStartDateTime ;
+    sh:name "referencedFileEffectiveStartDateTime" ;
+    sh:datatype xsd:dateTime ;
+.
+
+voc:ReferencedFileShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFile ;
+    sh:name "referencedFile" ;
+    sh:class voc:ReferencedFileDetails ;
+.
+
+voc:ReferencedFileSizeShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFileSize ;
+    sh:name "referencedFileSize" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:ReferencedFileTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFileType ;
+    sh:name "referencedFileType" ;
+    sh:node voc:ReferenceFileTypeCodeShape ;
+.
+
+voc:ReferencedFileURLShape
+    a sh:PropertyShape ;
+    sh:path voc:referencedFileURL ;
+    sh:name "referencedFileURL" ;
+    sh:datatype xsd:anyURI ;
+.
+
+voc:RegulatedProductNameShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatedProductName ;
+    sh:name "regulatedProductName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:RegulationTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:regulationType ;
+    sh:name "regulationType" ;
+    sh:node voc:RegulationTypeCodeShape ;
+.
+
+voc:RegulatoryActShape
+    a sh:PropertyShape ;
+    sh:path voc:regulatoryAct ;
+    sh:name "regulatoryAct" ;
+    sh:datatype xsd:string ;
+.
+
+voc:ReheatingClaimShape
+    a sh:PropertyShape ;
+    sh:path voc:reheatingClaim ;
+    sh:name "reheatingClaim" ;
+    sh:node voc:NonbinaryLogicCodeShape ;
+.
+
+voc:RelatedOrganizationShape
+    a sh:PropertyShape ;
+    sh:path voc:relatedOrganization ;
+    sh:name "relatedOrganization" ;
+    sh:class voc:Organization ;
+.
+
+voc:ReplacedByPlaceShape
+    a sh:PropertyShape ;
+    sh:path voc:replacedByPlace ;
+    sh:name "replacedByPlace" ;
+    sh:class voc:Place ;
+.
+
+voc:ReplacedByProductShape
+    a sh:PropertyShape ;
+    sh:path voc:replacedByProduct ;
+    sh:name "replacedByProduct" ;
+    sh:class voc:Product ;
+.
+
+voc:ReplacedPlaceShape
+    a sh:PropertyShape ;
+    sh:path voc:replacedPlace ;
+    sh:name "replacedPlace" ;
+    sh:class voc:Place ;
+.
+
+voc:ReplacedProductShape
+    a sh:PropertyShape ;
+    sh:path voc:replacedProduct ;
+    sh:name "replacedProduct" ;
+    sh:class voc:Product ;
+.
+
+voc:ResponsibilityShape
+    a sh:PropertyShape ;
+    sh:path voc:responsibility ;
+    sh:name "responsibility" ;
+    sh:class voc:RoleSpecification ;
+.
+
+voc:ResponsibleOrganizationShape
+    a sh:PropertyShape ;
+    sh:path voc:responsibleOrganization ;
+    sh:name "responsibleOrganization" ;
+    sh:class voc:Organization ;
+.
+
+voc:RiboflavinPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:riboflavinPerNutrientBasis ;
+    sh:name "riboflavinPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SaltPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:saltPerNutrientBasis ;
+    sh:name "saltPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SaturatedFatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:saturatedFatPerNutrientBasis ;
+    sh:name "saturatedFatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SeasonCalendarYearShape
+    a sh:PropertyShape ;
+    sh:path voc:seasonCalendarYear ;
+    sh:name "seasonCalendarYear" ;
+    sh:datatype xsd:gYear ;
+.
+
+voc:SeasonNameShape
+    a sh:PropertyShape ;
+    sh:path voc:seasonName ;
+    sh:name "seasonName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:SeasonParameterShape
+    a sh:PropertyShape ;
+    sh:path voc:seasonParameter ;
+    sh:name "seasonParameter" ;
+    sh:node voc:SeasonParameterCodeShape ;
+.
+
+voc:SeekerShape
+    a sh:PropertyShape ;
+    sh:path voc:seeker ;
+    sh:name "seeker" ;
+    sh:class voc:Organization ;
+.
+
+voc:SeleniumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:seleniumPerNutrientBasis ;
+    sh:name "seleniumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SellerShape
+    a sh:PropertyShape ;
+    sh:path voc:seller ;
+    sh:name "seller" ;
+    sh:class voc:Organization ;
+.
+
+voc:ServingSizeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:servingSizeDescription ;
+    sh:name "servingSizeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:ServingSizeShape
+    a sh:PropertyShape ;
+    sh:path voc:servingSize ;
+    sh:name "servingSize" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:ServingSuggestionShape
+    a sh:PropertyShape ;
+    sh:path voc:servingSuggestion ;
+    sh:name "servingSuggestion" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:SharpnessOfCheeseShape
+    a sh:PropertyShape ;
+    sh:path voc:sharpnessOfCheese ;
+    sh:name "sharpnessOfCheese" ;
+    sh:node voc:SharpnessOfCheeseCodeShape ;
+.
+
+voc:SiteAccessRequirementsShape
+    a sh:PropertyShape ;
+    sh:path voc:siteAccessRequirements ;
+    sh:name "siteAccessRequirements" ;
+    sh:datatype xsd:string ;
+.
+
+voc:SizeCodeListCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeCodeListCode ;
+    sh:name "sizeCodeListCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:SizeCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeCode ;
+    sh:name "sizeCode" ;
+    sh:class voc:SizeCodeDetails ;
+.
+
+voc:SizeCodeValueShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeCodeValue ;
+    sh:name "sizeCodeValue" ;
+    sh:datatype xsd:string ;
+.
+
+voc:SizeGroupCodePropertyShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeGroupCode ;
+    sh:name "sizeGroupCode" ;
+    sh:node voc:SizeGroupCodeShape ;
+.
+
+voc:SizeShape
+    a sh:PropertyShape ;
+    sh:path voc:size ;
+    sh:name "size" ;
+    sh:class voc:SizeDetails ;
+.
+
+voc:SizeDimensionShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeDimension;
+    sh:name "sizeDimension" ;
+    sh:class voc:QuantitativeValue ;
+.
+
+voc:SizeGroupShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeGroup ;
+    sh:name "sizeGroup" ;
+    sh:node voc:SizeGroupCodeShape ;
+.
+
+voc:SizeSystemShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeSystem ;
+    sh:name "sizeSystem" ;
+    sh:node voc:SizeSystemCodeShape ;
+.
+
+voc:SizeTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:sizeType ;
+    sh:name "sizeType" ;
+    sh:node voc:SizeTypeCodeShape ;
+.
+
+voc:SodiumPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:sodiumPerNutrientBasis ;
+    sh:name "sodiumPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SourceAnimalShape
+    a sh:PropertyShape ;
+    sh:path voc:sourceAnimal ;
+    sh:name "sourceAnimal" ;
+    sh:node voc:SourceAnimalCodeShape ;
+.
+
+voc:SportingActivityTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:sportingActivityType ;
+    sh:name "sportingActivityType" ;
+    sh:node voc:SportingActivityTypeCodeShape ;
+.
+
+voc:StarchPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:starchPerNutrientBasis ;
+    sh:name "starchPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:StreetAddressLine2Shape
+    a sh:PropertyShape ;
+    sh:path voc:streetAddressLine2 ;
+    sh:name "streetAddressLine2" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:StreetAddressLine3Shape
+    a sh:PropertyShape ;
+    sh:path voc:streetAddressLine3 ;
+    sh:name "streetAddressLine3" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:StreetAddressLine4Shape
+    a sh:PropertyShape ;
+    sh:path voc:streetAddressLine4 ;
+    sh:name "streetAddressLine4" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:StreetAddressShape
+    a sh:PropertyShape ;
+    sh:path voc:streetAddress ;
+    sh:name "streetAddress" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:StyleDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:styleDescription ;
+    sh:name "styleDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:SubBrandNameShape
+    a sh:PropertyShape ;
+    sh:path voc:subBrandName ;
+    sh:name "subBrandName" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:SugarsPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:sugarsPerNutrientBasis ;
+    sh:name "sugarsPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:SupplierSpecifiedMinimumConsumerStorageDaysShape
+    a sh:PropertyShape ;
+    sh:path voc:supplierSpecifiedMinimumConsumerStorageDays ;
+    sh:name "supplierSpecifiedMinimumConsumerStorageDays" ;
+    sh:datatype xsd:integer ;
+.
+
+voc:SweetnessLevelOfAlcoholicBeverageShape
+    a sh:PropertyShape ;
+    sh:path voc:sweetnessLevelOfAlcoholicBeverage ;
+    sh:name "sweetnessLevelOfAlcoholicBeverage" ;
+    sh:node voc:SweetnessLevelOfAlcoholicBeverageCodeShape ;
+.
+
+voc:TargetConsumerAgeShape
+    a sh:PropertyShape ;
+    sh:path voc:targetConsumerAge ;
+    sh:name "targetConsumerAge" ;
+    sh:datatype xsd:string ;
+.
+
+voc:TargetConsumerGenderShape
+    a sh:PropertyShape ;
+    sh:path voc:targetConsumerGender ;
+    sh:name "targetConsumerGender" ;
+    sh:node voc:TargetConsumerGenderCodeShape ;
+.
+
+voc:TargetMarketCountriesShape
+    a sh:PropertyShape ;
+    sh:path voc:targetMarketCountries ;
+    sh:name "targetMarketCountries" ;
+    sh:class voc:Country ;
+.
+
+voc:TargetMarketShape
+    a sh:PropertyShape ;
+    sh:path voc:targetMarket ;
+    sh:name "targetMarket" ;
+    sh:class voc:TargetMarketDetails ;
+.
+
+voc:TelephoneShape
+    a sh:PropertyShape ;
+    sh:path voc:telephone ;
+    sh:name "telephone" ;
+    sh:datatype xsd:string ;
+.
+
+voc:TextileMaterialContentShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterialContent ;
+    sh:name "textileMaterialContent" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:TextileMaterialDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterialDescription ;
+    sh:name "textileMaterialDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:TextileMaterialPercentageShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterialPercentage ;
+    sh:name "textileMaterialPercentage" ;
+    sh:datatype xsd:float;
+.
+
+voc:TextileMaterialShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterial ;
+    sh:name "textileMaterial" ;
+    sh:class voc:TextileMaterialDetails ;
+.
+
+voc:TextileMaterialThreadCountShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterialThreadCount ;
+    sh:name "textileMaterialThreadCount" ;
+    sh:datatype rdf:langString;
+.
+
+voc:TextileMaterialWeightShape
+    a sh:PropertyShape ;
+    sh:path voc:textileMaterialWeight ;
+    sh:name "textileMaterialWeight" ;
+    sh:class voc:QuantitativeValue;
+.
+
+voc:ThiaminPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:thiaminPerNutrientBasis ;
+    sh:name "thiaminPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:TransFatPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:transFatPerNutrientBasis ;
+    sh:name "transFatPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:UnitCodeShape
+    a sh:PropertyShape ;
+    sh:path voc:unitCode ;
+    sh:name "unitCode" ;
+    sh:datatype xsd:string ;
+.
+
+voc:UpperMaterialTypeShape
+    a sh:PropertyShape ;
+    sh:path voc:upperMaterialType ;
+    sh:name "upperMaterialType" ;
+    sh:class voc:TextileMaterialDetails ;
+.
+
+voc:ValueShape
+    a sh:PropertyShape ;
+    sh:path voc:value ;
+    sh:name "value" ;
+    sh:datatype xsd:float;
+.
+
+voc:VariantDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:variantDescription ;
+    sh:name "variantDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:VintnerShape
+    a sh:PropertyShape ;
+    sh:path voc:vintner ;
+    sh:name "vintner" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:VitaminAPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminAPerNutrientBasis ;
+    sh:name "vitaminAPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminB12PerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminB12PerNutrientBasis ;
+    sh:name "vitaminB12PerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminB6PerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminB6PerNutrientBasis ;
+    sh:name "vitaminB6PerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminCPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminCPerNutrientBasis ;
+    sh:name "vitaminCPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminDPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminDPerNutrientBasis ;
+    sh:name "vitaminDPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminEPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminEPerNutrientBasis ;
+    sh:name "vitaminEPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:VitaminKPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:vitaminKPerNutrientBasis ;
+    sh:name "vitaminKPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+voc:WarningCopyDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:warningCopyDescription ;
+    sh:name "warningCopyDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:WarrantyScopeDescriptionShape
+    a sh:PropertyShape ;
+    sh:path voc:warrantyScopeDescription ;
+    sh:name "warrantyScopeDescription" ;
+    sh:datatype rdf:langString ;
+.
+
+voc:WarrantyShape
+    a sh:PropertyShape ;
+    sh:path voc:warranty ;
+    sh:name "warranty" ;
+    sh:class voc:WarrantySpecification ;
+.
+
+voc:YieldShape
+    a sh:PropertyShape ;
+    sh:path voc:yield ;
+    sh:name "yield" ;
+    sh:class voc:ProductYieldDetails ;
+.
+
+voc:ZincPerNutrientBasisShape
+    a sh:PropertyShape ;
+    sh:path voc:zincPerNutrientBasis ;
+    sh:name "zincPerNutrientBasis" ;
+    sh:class voc:NutritionMeasurementType ;
+.
+
+
+# =================
+# Class code lists
+
+
+voc:AllergenTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:AllergenTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:AllergenTypeCode-AA
+    voc:AllergenTypeCode-ABD
+    voc:AllergenTypeCode-ABE
+    voc:AllergenTypeCode-ABF
+    voc:AllergenTypeCode-ABG
+    voc:AllergenTypeCode-ABH
+    voc:AllergenTypeCode-ABI
+    voc:AllergenTypeCode-ABJ
+    voc:AllergenTypeCode-ABK
+    voc:AllergenTypeCode-ABL
+    voc:AllergenTypeCode-ABN
+    voc:AllergenTypeCode-AC
+    voc:AllergenTypeCode-ACP
+    voc:AllergenTypeCode-AD
+    voc:AllergenTypeCode-ADB
+    voc:AllergenTypeCode-ADC
+    voc:AllergenTypeCode-ADE
+    voc:AllergenTypeCode-ADF
+    voc:AllergenTypeCode-ADG
+    voc:AllergenTypeCode-ADH
+    voc:AllergenTypeCode-ADI
+    voc:AllergenTypeCode-ADJ
+    voc:AllergenTypeCode-ADK
+    voc:AllergenTypeCode-ADL
+    voc:AllergenTypeCode-ADM
+    voc:AllergenTypeCode-ADP
+    voc:AllergenTypeCode-ADQ
+    voc:AllergenTypeCode-ADR
+    voc:AllergenTypeCode-ADS
+    voc:AllergenTypeCode-ADT
+    voc:AllergenTypeCode-ADU
+    voc:AllergenTypeCode-ADV
+    voc:AllergenTypeCode-ADW
+    voc:AllergenTypeCode-AE
+    voc:AllergenTypeCode-AF
+    voc:AllergenTypeCode-AH
+    voc:AllergenTypeCode-AI
+    voc:AllergenTypeCode-AJF
+    voc:AllergenTypeCode-AL
+    voc:AllergenTypeCode-AM
+    voc:AllergenTypeCode-AN
+    voc:AllergenTypeCode-ANO
+    voc:AllergenTypeCode-AP
+    voc:AllergenTypeCode-APL
+    voc:AllergenTypeCode-AS
+    voc:AllergenTypeCode-ASD
+    voc:AllergenTypeCode-AU
+    voc:AllergenTypeCode-AW
+    voc:AllergenTypeCode-AWF
+    voc:AllergenTypeCode-AY
+    voc:AllergenTypeCode-BA
+    voc:AllergenTypeCode-BAS
+    voc:AllergenTypeCode-BB
+    voc:AllergenTypeCode-BC
+    voc:AllergenTypeCode-BE
+    voc:AllergenTypeCode-BF
+    voc:AllergenTypeCode-BFD
+    voc:AllergenTypeCode-BFH
+    voc:AllergenTypeCode-BI
+    voc:AllergenTypeCode-BLF
+    voc:AllergenTypeCode-BM
+    voc:AllergenTypeCode-BN
+    voc:AllergenTypeCode-BND
+    voc:AllergenTypeCode-BO
+    voc:AllergenTypeCode-BP
+    voc:AllergenTypeCode-BQ
+    voc:AllergenTypeCode-BR
+    voc:AllergenTypeCode-BRC
+    voc:AllergenTypeCode-BRM
+    voc:AllergenTypeCode-BS
+    voc:AllergenTypeCode-BWD
+    voc:AllergenTypeCode-CA
+    voc:AllergenTypeCode-CFD
+    voc:AllergenTypeCode-CFH
+    voc:AllergenTypeCode-CHB
+    voc:AllergenTypeCode-CHR
+    voc:AllergenTypeCode-CKF
+    voc:AllergenTypeCode-CL
+    voc:AllergenTypeCode-CLM
+    voc:AllergenTypeCode-CM
+    voc:AllergenTypeCode-CN
+    voc:AllergenTypeCode-CO
+    voc:AllergenTypeCode-COK
+    voc:AllergenTypeCode-CON
+    voc:AllergenTypeCode-CS
+    voc:AllergenTypeCode-CSC
+    voc:AllergenTypeCode-CT
+    voc:AllergenTypeCode-DA
+    voc:AllergenTypeCode-DMF
+    voc:AllergenTypeCode-DP
+    voc:AllergenTypeCode-DYF
+    voc:AllergenTypeCode-EEL
+    voc:AllergenTypeCode-EG
+    voc:AllergenTypeCode-EOD
+    voc:AllergenTypeCode-EP
+    voc:AllergenTypeCode-EV
+    voc:AllergenTypeCode-FA
+    voc:AllergenTypeCode-FH
+    voc:AllergenTypeCode-FT
+    voc:AllergenTypeCode-GB
+    voc:AllergenTypeCode-GE
+    voc:AllergenTypeCode-GK
+    voc:AllergenTypeCode-GL
+    voc:AllergenTypeCode-GO
+    voc:AllergenTypeCode-GOM
+    voc:AllergenTypeCode-GS
+    voc:AllergenTypeCode-GTD
+    voc:AllergenTypeCode-HB
+    voc:AllergenTypeCode-HC
+    voc:AllergenTypeCode-HD
+    voc:AllergenTypeCode-HE
+    voc:AllergenTypeCode-HH
+    voc:AllergenTypeCode-HN
+    voc:AllergenTypeCode-HP
+    voc:AllergenTypeCode-HX
+    voc:AllergenTypeCode-HY
+    voc:AllergenTypeCode-JCH
+    voc:AllergenTypeCode-JFD
+    voc:AllergenTypeCode-KWD
+    voc:AllergenTypeCode-LGD
+    voc:AllergenTypeCode-LMT
+    voc:AllergenTypeCode-LSN
+    voc:AllergenTypeCode-LX
+    voc:AllergenTypeCode-MAC
+    voc:AllergenTypeCode-MAL
+    voc:AllergenTypeCode-MFD
+    voc:AllergenTypeCode-MH
+    voc:AllergenTypeCode-MKF
+    voc:AllergenTypeCode-ML
+    voc:AllergenTypeCode-MM
+    voc:AllergenTypeCode-MMD
+    voc:AllergenTypeCode-MOD
+    voc:AllergenTypeCode-MSS
+    voc:AllergenTypeCode-NC
+    voc:AllergenTypeCode-NE
+    voc:AllergenTypeCode-NK
+    voc:AllergenTypeCode-NL
+    voc:AllergenTypeCode-NM
+    voc:AllergenTypeCode-NP
+    voc:AllergenTypeCode-NR
+    voc:AllergenTypeCode-NW
+    voc:AllergenTypeCode-OCT
+    voc:AllergenTypeCode-OFD
+    voc:AllergenTypeCode-OGD
+    voc:AllergenTypeCode-ON
+    voc:AllergenTypeCode-ORR
+    voc:AllergenTypeCode-OYS
+    voc:AllergenTypeCode-PER
+    voc:AllergenTypeCode-PFD
+    voc:AllergenTypeCode-PGT
+    voc:AllergenTypeCode-PHD
+    voc:AllergenTypeCode-PLC
+    voc:AllergenTypeCode-PM
+    voc:AllergenTypeCode-PN
+    voc:AllergenTypeCode-PO
+    voc:AllergenTypeCode-POM
+    voc:AllergenTypeCode-PP
+    voc:AllergenTypeCode-PRG
+    voc:AllergenTypeCode-PS
+    voc:AllergenTypeCode-QUA
+    voc:AllergenTypeCode-ROF
+    voc:AllergenTypeCode-SA
+    voc:AllergenTypeCode-SAD
+    voc:AllergenTypeCode-SAR
+    voc:AllergenTypeCode-SB
+    voc:AllergenTypeCode-SC
+    voc:AllergenTypeCode-SCA
+    voc:AllergenTypeCode-SD
+    voc:AllergenTypeCode-SDF
+    voc:AllergenTypeCode-SE
+    voc:AllergenTypeCode-SF
+    voc:AllergenTypeCode-SFD
+    voc:AllergenTypeCode-SFT
+    voc:AllergenTypeCode-SG
+    voc:AllergenTypeCode-SH
+    voc:AllergenTypeCode-SHD
+    voc:AllergenTypeCode-SHK
+    voc:AllergenTypeCode-SI
+    voc:AllergenTypeCode-SJ
+    voc:AllergenTypeCode-SK
+    voc:AllergenTypeCode-SL
+    voc:AllergenTypeCode-SM
+    voc:AllergenTypeCode-SMF
+    voc:AllergenTypeCode-SMR
+    voc:AllergenTypeCode-SMT
+    voc:AllergenTypeCode-SN
+    voc:AllergenTypeCode-SO
+    voc:AllergenTypeCode-SP
+    voc:AllergenTypeCode-SPF
+    voc:AllergenTypeCode-SQU
+    voc:AllergenTypeCode-SR
+    voc:AllergenTypeCode-SS
+    voc:AllergenTypeCode-ST
+    voc:AllergenTypeCode-STG
+    voc:AllergenTypeCode-SU
+    voc:AllergenTypeCode-SW
+    voc:AllergenTypeCode-SX
+    voc:AllergenTypeCode-TA
+    voc:AllergenTypeCode-TD
+    voc:AllergenTypeCode-TFD
+    voc:AllergenTypeCode-TR
+    voc:AllergenTypeCode-TTD
+    voc:AllergenTypeCode-TUR
+    voc:AllergenTypeCode-UM
+    voc:AllergenTypeCode-UN
+    voc:AllergenTypeCode-UW
+    voc:AllergenTypeCode-WFD
+    voc:AllergenTypeCode-WHK
+    voc:AllergenTypeCode-WHT
+    voc:AllergenTypeCode-X99
+    voc:AllergenTypeCode-YMD
+  ) ;
+.
+
+voc:AnatomicalFormCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:AnatomicalFormCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:AnatomicalFormCode-BELLY
+    voc:AnatomicalFormCode-BLOOD
+    voc:AnatomicalFormCode-BONE
+    voc:AnatomicalFormCode-BRAIN
+    voc:AnatomicalFormCode-CARCASS_NONPOULTRY
+    voc:AnatomicalFormCode-DIAPHRAM
+    voc:AnatomicalFormCode-ESOPHAGUS
+    voc:AnatomicalFormCode-FAT
+    voc:AnatomicalFormCode-FEET
+    voc:AnatomicalFormCode-FOREQUARTER
+    voc:AnatomicalFormCode-GIZZARD
+    voc:AnatomicalFormCode-HEAD
+    voc:AnatomicalFormCode-HEADMEAT_CHEEKMEAT
+    voc:AnatomicalFormCode-HEART
+    voc:AnatomicalFormCode-HINDQUARTER
+    voc:AnatomicalFormCode-HORN
+    voc:AnatomicalFormCode-INTESTINE_LARGE
+    voc:AnatomicalFormCode-INTESTINE_SMALL
+    voc:AnatomicalFormCode-KIDNEY
+    voc:AnatomicalFormCode-LIPS
+    voc:AnatomicalFormCode-LIVER
+    voc:AnatomicalFormCode-LUNGS
+    voc:AnatomicalFormCode-MIXED_OFFAL
+    voc:AnatomicalFormCode-MIXED_PARTS_FOR_GROUNDING_MINCING
+    voc:AnatomicalFormCode-NECK
+    voc:AnatomicalFormCode-PANCREAS
+    voc:AnatomicalFormCode-SKIN
+    voc:AnatomicalFormCode-STOMACH
+    voc:AnatomicalFormCode-TAIL
+    voc:AnatomicalFormCode-TENDONS
+    voc:AnatomicalFormCode-TESTICLES
+    voc:AnatomicalFormCode-THYMUS
+    voc:AnatomicalFormCode-TONGUE
+    voc:AnatomicalFormCode-TRIPE
+    voc:AnatomicalFormCode-UNCLASSIFIED
+    voc:AnatomicalFormCode-UNIDENTIFIED
+    voc:AnatomicalFormCode-WHOLE_BIRD
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_NONPOULTRY_MEATPART_PIECE
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_POULTRY_PART
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_PRIMAL
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_RIBCUT
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_ROASTCUT
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_SLICE_CHOPCUT
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_SLICE_CUTLET
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_STEAK_CHOPCUT
+    voc:AnatomicalFormCode-WHOLE_MUSCLE_SUBPRIMAL
+  ) ;
+.
+
+voc:CheeseFirmnessCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:CheeseFirmnessCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:CheeseFirmnessCode-EXTRA_HARD
+    voc:CheeseFirmnessCode-FIRM_SEMIHARD
+    voc:CheeseFirmnessCode-HARD
+    voc:CheeseFirmnessCode-SOFT
+    voc:CheeseFirmnessCode-UNIDENTIFIED
+  ) ;
+.
+
+voc:ConsumerLifestageCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:ConsumerLifestageCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:ConsumerLifestageCode-ADULT
+    voc:ConsumerLifestageCode-ALL_AGES
+    voc:ConsumerLifestageCode-BABY_INFANT
+    voc:ConsumerLifestageCode-CHILD_1_To_2_YEARS
+    voc:ConsumerLifestageCode-CHILD_2_YEARS_ONWARDS
+    voc:ConsumerLifestageCode-UNCLASSIFIED
+    voc:ConsumerLifestageCode-UNIDENTIFIED
+  ) ;
+.
+
+voc:ColourCodeListCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:ColourCodeListCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:ColourCodeList-BUYER
+    voc:ColourCodeList-IFPS
+    voc:ColourCodeList-NCS
+    voc:ColourCodeList-NRF
+    voc:ColourCodeList-PANTONE_HEXACHROME
+    voc:ColourCodeList-PANTONE_MATCHING
+    voc:ColourCodeList-PANTONE_PROCESS_COLOUR
+    voc:ColourCodeList-PANTONE_TEXTILE
+    voc:ColourCodeList-RAL
+    voc:ColourCodeList-SELLER
+    voc:ColourCodeList-WWS
+  ) ;
+.
+
+voc:CompulsoryAdditionalLabelInformationTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:CompulsoryAdditionalLabelInformationTypeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:CompulsoryAdditionalLabelInformationTypeCode-CAFFEINE
+    voc:CompulsoryAdditionalLabelInformationTypeCode-MEAT_POULTRY_WATER_RETENTION
+    voc:CompulsoryAdditionalLabelInformationTypeCode-PREBIOTIC
+    voc:CompulsoryAdditionalLabelInformationTypeCode-PROBIOTICS
+    voc:CompulsoryAdditionalLabelInformationTypeCode-SUPPLEMENTED_FOODS_CAUTION
+    voc:CompulsoryAdditionalLabelInformationTypeCode-SWEETENERS
+  ) ;
+.
+
+voc:ConsumerSalesConditionsCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:ConsumerSalesConditionsCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:ConsumerSalesConditionsCode-BTC
+    voc:ConsumerSalesConditionsCode-OTC
+    voc:ConsumerSalesConditionsCode-PRESCRIPTION_REQUIRED
+    voc:ConsumerSalesConditionsCode-RESTRICTED_TO_SELL_16
+    voc:ConsumerSalesConditionsCode-RESTRICTED_TO_SELL_18
+    voc:ConsumerSalesConditionsCode-RESTRICTED_TO_SELL_21
+  ) ;
+.
+
+voc:CertificationStatusCodeShape 
+  a sh:NodeShape ;
+  sh:targetClass voc:CertificationStatus;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:CertificationStatus-ACTIVE
+    voc:CertificationStatus-INACTIVE
+  ) ;
+.
+
+voc:DietTypeCodeShape 
+  a sh:NodeShape ;
+  sh:targetClass voc:DietTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:DietTypeCode-COELIAC
+    voc:DietTypeCode-DIETETIC
+    voc:DietTypeCode-FREE_FROM_GLUTEN
+    voc:DietTypeCode-HALAL
+    voc:DietTypeCode-KOSHER
+    voc:DietTypeCode-ORGANIC
+    voc:DietTypeCode-VEGAN
+    voc:DietTypeCode-VEGETARIAN
+    voc:DietTypeCode-WITHOUT_BEEF
+    voc:DietTypeCode-WITHOUT_PORK
+  ) ;
+.
+
+voc:FoodBeverageRefrigerationClaimCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:FoodBeverageRefrigerationClaimCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:FoodBeverageRefrigerationClaimCode-CAN_BE_REFRIGERATED
+    voc:FoodBeverageRefrigerationClaimCode-MUST_BE_REFRIGERATED
+    voc:FoodBeverageRefrigerationClaimCode-SHELF_STABLE
+    voc:FoodBeverageRefrigerationClaimCode-UNIDENTIFIED
+  ) ;
+.
+
+voc:FoodBeverageTargetUseCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:FoodBeverageTargetUseCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:FoodBeverageTargetUseCode-ANY_MEAL
+    voc:FoodBeverageTargetUseCode-BREAKFAST
+    voc:FoodBeverageTargetUseCode-MAIN_MEAL
+    voc:FoodBeverageTargetUseCode-PORTABLE_MEAL
+    voc:FoodBeverageTargetUseCode-SNACK
+    voc:FoodBeverageTargetUseCode-UNCLASSIFIED
+  ) ;
+.
+
+voc:FootwearFasteningTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:FootwearFasteningTypeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:FootwearFasteningTypeCode-MULTIPLE_FASTENING
+    voc:FootwearFasteningTypeCode-SHOE_LACE
+    voc:FootwearFasteningTypeCode-SLIP_ON_WITHOUT_ELASTIC
+    voc:FootwearFasteningTypeCode-SLIP_ON_WITH_ELASTIC
+    voc:FootwearFasteningTypeCode-STRAP
+    voc:FootwearFasteningTypeCode-UNCLASSIFIED
+    voc:FootwearFasteningTypeCode-UNIDENTIFIED
+    voc:FootwearFasteningTypeCode-VELCRO
+  ) ;
+.
+ 
+voc:FreshOrSeawaterFarmedCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:FreshOrSeawaterFarmedCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:FreshOrSeawaterFarmedCode-FRESHWATER_FARMED
+    voc:FreshOrSeawaterFarmedCode-SEAWATER_FARMED
+    voc:FreshOrSeawaterFarmedCode-UNCLASSIFIED
+    voc:FreshOrSeawaterFarmedCode-UNIDENTIFIED
+  ) ;
+.
+
+voc:GLN_TypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:GLN_TypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:GLN_TypeCode-DIGITAL_LOCATION
+      voc:GLN_TypeCode-FIXED_PHYSICAL_LOCATION
+      voc:GLN_TypeCode-FUNCTION
+      voc:GLN_TypeCode-LEGAL_ENTITY
+      voc:GLN_TypeCode-MOBILE_PHYSICAL_LOCATION
+    ) ;
+.
+
+voc:GrowingMethodCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:GrowingMethodCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:GrowingMethodCode-CAGE_FREE
+    voc:GrowingMethodCode-CLONED_FOODS
+    voc:GrowingMethodCode-CONVENTIONAL
+    voc:GrowingMethodCode-FARM_RAISED
+    voc:GrowingMethodCode-FIELD_GROWN
+    voc:GrowingMethodCode-FLY_FREE
+    voc:GrowingMethodCode-FREE_RANGE
+    voc:GrowingMethodCode-GRASS_FED
+    voc:GrowingMethodCode-GREENHOUSE
+    voc:GrowingMethodCode-HUMANELY_RAISED
+    voc:GrowingMethodCode-HYDROPONIC
+    voc:GrowingMethodCode-INTEGRATED_PEST_MANAGEMENT
+    voc:GrowingMethodCode-ORGANIC
+    voc:GrowingMethodCode-SHADE_GROWN
+    voc:GrowingMethodCode-SUSTAINABLE
+    voc:GrowingMethodCode-WILD
+  ) ;
+.
+
+voc:LevelOfContainmentCodeShape
+    a sh:NodeShape ;
+    sh:targetClass voc:LevelOfContainmentCode ;
+    sh:nodeKind sh:IRI ;
+    sh:in (
+        voc:LevelOfContainmentCode-CONTAINS
+        voc:LevelOfContainmentCode-FREE_FROM
+        voc:LevelOfContainmentCode-MAY_CONTAIN
+    ) ;
+.
+
+voc:MaturationMethodCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:MaturationMethodCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:MaturationMethodCode-JET_FRESH
+    voc:MaturationMethodCode-PRECONDITIONED
+    voc:MaturationMethodCode-TREE_VINE_RIPE
+  ) ;
+.
+
+voc:MeasurementPrecisionCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:MeasurementPrecisionCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:MeasurementPrecisionCode-APPROXIMATELY
+    voc:MeasurementPrecisionCode-EXACT
+    voc:MeasurementPrecisionCode-LESS_THAN
+  ) ;
+.
+
+voc:NonbinaryLogicCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:NonbinaryLogicCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:NonbinaryLogicCode-FALSE
+    voc:NonbinaryLogicCode-NOT_APPLICABLE
+    voc:NonbinaryLogicCode-TRUE
+    voc:NonbinaryLogicCode-UNSPECIFIED
+  ) ;
+.
+
+voc:NutrientBasisQuantityCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:NutrientBasisQuantityCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:NutrientBasisQuantityCode-BY_MEASURE
+    voc:NutrientBasisQuantityCode-BY_SERVING
+  ) ;
+.
+
+voc:NutritionalClaimTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:NutritionalClaimTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:NutritionalClaimTypeCode-ADDITIVE_FREE
+    voc:NutritionalClaimTypeCode-ARTIFICIALLY_SWEETENED
+    voc:NutritionalClaimTypeCode-CHOLESTEROL_FREE
+    voc:NutritionalClaimTypeCode-COLOURING_AGENT_FREE
+    voc:NutritionalClaimTypeCode-CONTAINS_GLYZYRRHIZIN
+    voc:NutritionalClaimTypeCode-CONTAINS_LIQUORICE
+    voc:NutritionalClaimTypeCode-CONTAINS_SOY
+    voc:NutritionalClaimTypeCode-EGG_FREE
+    voc:NutritionalClaimTypeCode-ENERGY_FREE
+    voc:NutritionalClaimTypeCode-ENERGY_REDUCED
+    voc:NutritionalClaimTypeCode-ENRICHED_OR_FORTIFIED_IN_VITAMINS_AND_OR_MINERALS
+    voc:NutritionalClaimTypeCode-FAT_FREE
+    voc:NutritionalClaimTypeCode-FREE_FROM_GLUTEN
+    voc:NutritionalClaimTypeCode-GUARANTEED_LACTOSE_FREE
+    voc:NutritionalClaimTypeCode-HIGH_FIBRE
+    voc:NutritionalClaimTypeCode-HIGH_PROTEIN
+    voc:NutritionalClaimTypeCode-HIGH_VITAMINS_AND_OR_MINERALS
+    voc:NutritionalClaimTypeCode-LACTOSE_FREE
+    voc:NutritionalClaimTypeCode-LIGHT_LITE
+    voc:NutritionalClaimTypeCode-LOW_ENERGY
+    voc:NutritionalClaimTypeCode-LOW_FAT
+    voc:NutritionalClaimTypeCode-LOW_LACTOSE
+    voc:NutritionalClaimTypeCode-LOW_PROTEIN
+    voc:NutritionalClaimTypeCode-LOW_SATURATED_FAT
+    voc:NutritionalClaimTypeCode-LOW_SODIUM_SALT
+    voc:NutritionalClaimTypeCode-LOW_SUGARS
+    voc:NutritionalClaimTypeCode-MILK_FREE
+    voc:NutritionalClaimTypeCode-MILK_PROTEIN_FREE
+    voc:NutritionalClaimTypeCode-NATURAL_SOURCE_OF_VITAMINS_AND_OR_MINERALS
+    voc:NutritionalClaimTypeCode-NON_ALCOHOLIC
+    voc:NutritionalClaimTypeCode-NUT_FREE
+    voc:NutritionalClaimTypeCode-PEANUT_FREE
+    voc:NutritionalClaimTypeCode-PRESERVATIVE_FREE
+    voc:NutritionalClaimTypeCode-SATURATED_FAT_FREE
+    voc:NutritionalClaimTypeCode-SODIUM_FREE_OR_SALT_FREE
+    voc:NutritionalClaimTypeCode-SOURCE_OF_FIBRE
+    voc:NutritionalClaimTypeCode-SOURCE_OF_PROTEIN
+    voc:NutritionalClaimTypeCode-SOY_FREE
+    voc:NutritionalClaimTypeCode-STRONGLY_SALTED
+    voc:NutritionalClaimTypeCode-SUGARS_FREE
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_AGAVE_SYRUP
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_CANE_SUGAR
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_CORN_SYRUP
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_FRUCTOSE
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_FRUIT_JUICE
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_FRUIT_SYRUP
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_HONEY
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_MALT
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_RAW_BEET_SUGAR
+    voc:NutritionalClaimTypeCode-SWEETENED_WITH_WHITE_SUGAR
+    voc:NutritionalClaimTypeCode-VERY_LOW_GLUTEN
+    voc:NutritionalClaimTypeCode-VERY_LOW_SODIUM_SALT
+    voc:NutritionalClaimTypeCode-WHEAT_FREE
+    voc:NutritionalClaimTypeCode-WITH_NO_ADDED_SUGARS
+  ) ;
+.
+
+voc:OrganicClaimAgencyCodeShape 
+  a sh:NodeShape ;
+  sh:targetClass voc:OrganicClaimAgencyCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:OrganicClaimAgencyCode-1
+    voc:OrganicClaimAgencyCode-10
+    voc:OrganicClaimAgencyCode-11
+    voc:OrganicClaimAgencyCode-12
+    voc:OrganicClaimAgencyCode-13
+    voc:OrganicClaimAgencyCode-14
+    voc:OrganicClaimAgencyCode-15
+    voc:OrganicClaimAgencyCode-16
+    voc:OrganicClaimAgencyCode-17
+    voc:OrganicClaimAgencyCode-19
+    voc:OrganicClaimAgencyCode-2
+    voc:OrganicClaimAgencyCode-20
+    voc:OrganicClaimAgencyCode-21
+    voc:OrganicClaimAgencyCode-22
+    voc:OrganicClaimAgencyCode-23
+    voc:OrganicClaimAgencyCode-24
+    voc:OrganicClaimAgencyCode-25
+    voc:OrganicClaimAgencyCode-26
+    voc:OrganicClaimAgencyCode-27
+    voc:OrganicClaimAgencyCode-28
+    voc:OrganicClaimAgencyCode-29
+    voc:OrganicClaimAgencyCode-3
+    voc:OrganicClaimAgencyCode-30
+    voc:OrganicClaimAgencyCode-31
+    voc:OrganicClaimAgencyCode-32
+    voc:OrganicClaimAgencyCode-33
+    voc:OrganicClaimAgencyCode-34
+    voc:OrganicClaimAgencyCode-4
+    voc:OrganicClaimAgencyCode-5
+    voc:OrganicClaimAgencyCode-6
+    voc:OrganicClaimAgencyCode-7
+    voc:OrganicClaimAgencyCode-8
+    voc:OrganicClaimAgencyCode-9
+    voc:OrganicClaimAgencyCode-999
+  ) ;
+.
+
+voc:PreparationTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PreparationTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+    voc:PreparationTypeCode-AS_DRAINED
+    voc:PreparationTypeCode-BAKE
+    voc:PreparationTypeCode-BARBECUE
+    voc:PreparationTypeCode-BLANCH
+    voc:PreparationTypeCode-BLIND_BAKE
+    voc:PreparationTypeCode-BOIL
+    voc:PreparationTypeCode-BRAISE
+    voc:PreparationTypeCode-BROIL
+    voc:PreparationTypeCode-DEEP_FRY
+    voc:PreparationTypeCode-DOUBLE_STEAM
+    voc:PreparationTypeCode-FREEZE
+    voc:PreparationTypeCode-FRY
+    voc:PreparationTypeCode-GRIDDLE_FRY
+    voc:PreparationTypeCode-GRILL
+    voc:PreparationTypeCode-HEAT_AND_SERVE
+    voc:PreparationTypeCode-MICROWAVE
+    voc:PreparationTypeCode-PAN_FRY
+    voc:PreparationTypeCode-POACH
+    voc:PreparationTypeCode-PREPARED
+    voc:PreparationTypeCode-PRESSURE_COOK
+    voc:PreparationTypeCode-PRESSURE_FRY
+    voc:PreparationTypeCode-READY_TO_DRINK
+    voc:PreparationTypeCode-READY_TO_EAT
+    voc:PreparationTypeCode-RECONSTITUTE
+    voc:PreparationTypeCode-REFRIGERATE
+    voc:PreparationTypeCode-ROAST
+    voc:PreparationTypeCode-ROTISSERIE
+    voc:PreparationTypeCode-SAUTE
+    voc:PreparationTypeCode-SEAR
+    voc:PreparationTypeCode-SIMMER
+    voc:PreparationTypeCode-SMOKE
+    voc:PreparationTypeCode-STEAM
+    voc:PreparationTypeCode-STEW
+    voc:PreparationTypeCode-STIR_FRY
+    voc:PreparationTypeCode-THAW
+    voc:PreparationTypeCode-UNPREPARED
+    voc:PreparationTypeCode-UNSPECIFIED
+  ) ;
+.
+
+voc:packagingFeatureCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingFeatureCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingFeatureCode-BASE
+      voc:PackagingFeatureCode-BEAM
+      voc:PackagingFeatureCode-BUNG_SEAL
+      voc:PackagingFeatureCode-CAP
+      voc:PackagingFeatureCode-CARRIER
+      voc:PackagingFeatureCode-CONSUMPTION_UTENSIL
+      voc:PackagingFeatureCode-CORE
+      voc:PackagingFeatureCode-CREEL
+      voc:PackagingFeatureCode-EDGE_PROTECTION
+      voc:PackagingFeatureCode-HANDLE
+      voc:PackagingFeatureCode-INNER_CONTAINER
+      voc:PackagingFeatureCode-INTERNAL_DIVIDER
+      voc:PackagingFeatureCode-LABEL
+      voc:PackagingFeatureCode-LID
+      voc:PackagingFeatureCode-LINER
+      voc:PackagingFeatureCode-LUG
+      voc:PackagingFeatureCode-NESTING_EDGE
+      voc:PackagingFeatureCode-PEG
+      voc:PackagingFeatureCode-PULL_OFF_TAB
+      voc:PackagingFeatureCode-RING_HOLDER
+      voc:PackagingFeatureCode-RIVET
+      voc:PackagingFeatureCode-SLEEVE
+      voc:PackagingFeatureCode-SPOUT
+      voc:PackagingFeatureCode-TAG
+      voc:PackagingFeatureCode-WICKER_OUTER_CONTAINER
+      voc:PackagingFeatureCode-WRAP
+    ) ;
+.
+
+voc:PackagingFunctionCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingFunctionCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingFunctionCode-ANTISEPTIC
+      voc:PackagingFunctionCode-ANTI_TAMPERING
+      voc:PackagingFunctionCode-COATED
+      voc:PackagingFunctionCode-COMPRESSED
+      voc:PackagingFunctionCode-DISPENSER
+      voc:PackagingFunctionCode-GIFT_WRAPPED
+      voc:PackagingFunctionCode-ISOTHERMIC
+      voc:PackagingFunctionCode-MODIFIED_ATMOSPHERE
+      voc:PackagingFunctionCode-OXYGEN_INFUSED
+      voc:PackagingFunctionCode-PEEL_OFF
+      voc:PackagingFunctionCode-PINPACK
+      voc:PackagingFunctionCode-PROTECTED
+      voc:PackagingFunctionCode-REINFORCED
+      voc:PackagingFunctionCode-SIFT_PROOF
+      voc:PackagingFunctionCode-TAMPER_EVIDENT
+      voc:PackagingFunctionCode-WATER_RESISTANT
+    ) ;
+.
+
+voc:PackagingMarkedDietAllergenCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingMarkedDietAllergenCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingMarkedDietAllergenCode-APPROVED_BY_ASTHMA_AND_ALLERGY_ASSOC
+      voc:PackagingMarkedDietAllergenCode-APPROVED_FOR_TUBE_FEEDING
+      voc:PackagingMarkedDietAllergenCode-BIOLOGICAL
+      voc:PackagingMarkedDietAllergenCode-CALORIES_PER_PORTION
+      voc:PackagingMarkedDietAllergenCode-CONTAINS_LATEX
+      voc:PackagingMarkedDietAllergenCode-CONTAINS_PVC
+      voc:PackagingMarkedDietAllergenCode-CONTAINS_PVC_WITHOUT_PHTHALATES
+      voc:PackagingMarkedDietAllergenCode-CONTAINS_PVC_WITH_PHTHALATES
+      voc:PackagingMarkedDietAllergenCode-DIET_PRODUCT_450_800_KCAL_PER_DAY
+      voc:PackagingMarkedDietAllergenCode-DIET_PRODUCT_800_1200_KCAL_PER_DAY
+      voc:PackagingMarkedDietAllergenCode-GEZONDE_KEUZE_KLAVERTJE
+      voc:PackagingMarkedDietAllergenCode-HALAL
+      voc:PackagingMarkedDietAllergenCode-IK_KIES_BEWUST
+      voc:PackagingMarkedDietAllergenCode-KOSHER
+      voc:PackagingMarkedDietAllergenCode-LACTASE_ENZYME
+      voc:PackagingMarkedDietAllergenCode-LOW_ON_PHENYLALANINE
+      voc:PackagingMarkedDietAllergenCode-LOW_ON_SUGAR
+      voc:PackagingMarkedDietAllergenCode-MOTHERS_MILK_SUBSTITUTE
+      voc:PackagingMarkedDietAllergenCode-NUTRITION_SUPPLEMENT
+      voc:PackagingMarkedDietAllergenCode-NYCKELHAL_MARK
+      voc:PackagingMarkedDietAllergenCode-VEGETARIAN
+    ) ;
+.
+
+voc:PackagingMarkedFreeFromCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingMarkedFreeFromCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_ARTIFICIAL_COLOURING
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_ARTIFICIAL_FLAVOURING
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_ARTIFICIAL_PRESERVATIVES
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_CHOLESTEROL
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_CLONED_FOOD
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_DAIRY
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_EGG
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_FISH
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_GLUTEN
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_LACTOSE
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_LATEX
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_LEGUME_PROTEIN
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_MILK
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_MILK_PROTEIN
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_NATURAL_GLUTEN
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_PEANUTS
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_PROTEIN
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_PVC
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_SOYA
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_SUGAR
+      voc:PackagingMarkedFreeFromCode-FREE_FROM_TRANSFAT
+      voc:PackagingMarkedFreeFromCode-REDUCED_LACTOSE
+      voc:PackagingMarkedFreeFromCode-REDUCED_PROTEIN
+      voc:PackagingMarkedFreeFromCode-REDUCED_TRANSFAT
+      voc:PackagingMarkedFreeFromCode-VERY_LOW_GLUTEN
+      voc:PackagingMarkedFreeFromCode-WITHOUT_ADDED_SALT
+      voc:PackagingMarkedFreeFromCode-WITHOUT_ADDED_SUGAR
+      voc:PackagingMarkedFreeFromCode-WITHOUT_ADDED_SWEETENER
+    ) ;
+.
+
+voc:PackagingRecyclingProcessTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingRecyclingProcessTypeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingRecyclingProcessTypeCode-COMPOSTABLE
+      voc:PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE
+      voc:PackagingRecyclingProcessTypeCode-RECYCLABLE
+      voc:PackagingRecyclingProcessTypeCode-REUSABLE
+    ) ;
+.
+
+voc:PackagingRecyclingSchemeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingRecyclingSchemeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingRecyclingSchemeCode-ALKO
+      voc:PackagingRecyclingSchemeCode-A_PULLO
+      voc:PackagingRecyclingSchemeCode-EKO_PULLO
+      voc:PackagingRecyclingSchemeCode-PALPA
+    ) ;
+.
+
+voc:PackagingShapeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingShapeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingShapeCode-BAR
+      voc:PackagingShapeCode-COIL
+      voc:PackagingShapeCode-CONE
+      voc:PackagingShapeCode-CYLINDRICAL
+      voc:PackagingShapeCode-POLYGON
+      voc:PackagingShapeCode-RECTANGULAR
+      voc:PackagingShapeCode-SPHERICAL
+      voc:PackagingShapeCode-TABLET
+      voc:PackagingShapeCode-UNSPECIFIED
+    ) ;
+.
+
+voc:PackagingMarkedLabelAccreditationCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingMarkedLabelAccreditationCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingMarkedLabelAccreditationCode-AMA_ORGANIC_SEAL
+      voc:PackagingMarkedLabelAccreditationCode-AUS_KAUP_ESTONIA
+      voc:PackagingMarkedLabelAccreditationCode-BDIH_LOGO
+      voc:PackagingMarkedLabelAccreditationCode-BETER_LEVEN_1_STER
+      voc:PackagingMarkedLabelAccreditationCode-BETER_LEVEN_2_STER
+      voc:PackagingMarkedLabelAccreditationCode-BETER_LEVEN_3_STER
+      voc:PackagingMarkedLabelAccreditationCode-BIO_AUSTRIA_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-BIO_LABEL_GERMAN
+      voc:PackagingMarkedLabelAccreditationCode-BIO_SUISSE_BUD_SEAL
+      voc:PackagingMarkedLabelAccreditationCode-BLUE_ANGEL
+      voc:PackagingMarkedLabelAccreditationCode-BORD_BIA_APPROVED
+      voc:PackagingMarkedLabelAccreditationCode-BORD_BIA_APPROVED_MEAT
+      voc:PackagingMarkedLabelAccreditationCode-BRA_MILJOVAL_LABEL_SWEDISH
+      voc:PackagingMarkedLabelAccreditationCode-CROSSED_GRAIN_SYMBOL
+      voc:PackagingMarkedLabelAccreditationCode-DEMETER_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-ECOCERT_CERTIFICATE
+      voc:PackagingMarkedLabelAccreditationCode-ECO_LABEL_LADYBUG
+      voc:PackagingMarkedLabelAccreditationCode-EC_NATIONAL_HEALTH_MARK
+      voc:PackagingMarkedLabelAccreditationCode-EESTI_OKOMARK
+      voc:PackagingMarkedLabelAccreditationCode-EESTI_PARIM_TOIDUAINE
+      voc:PackagingMarkedLabelAccreditationCode-EKO
+      voc:PackagingMarkedLabelAccreditationCode-EU_ECO_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-EU_ORGANIC_FARMING
+      voc:PackagingMarkedLabelAccreditationCode-FAIR_TRADE_MARK
+      voc:PackagingMarkedLabelAccreditationCode-FALKEN
+      voc:PackagingMarkedLabelAccreditationCode-FINNISH_HEART_SYMBOL
+      voc:PackagingMarkedLabelAccreditationCode-FOREST_STEWARDSHIP_COUNCIL_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-GMO_MARKED
+      voc:PackagingMarkedLabelAccreditationCode-GOODS_FROM_FINLAND_BLUE_SWAN
+      voc:PackagingMarkedLabelAccreditationCode-GREEN_DOT
+      voc:PackagingMarkedLabelAccreditationCode-GREEN_RESTAURANT_ASSOCIATION_ENDORSED
+      voc:PackagingMarkedLabelAccreditationCode-GREEN_SEAL_CERTIFIED
+      voc:PackagingMarkedLabelAccreditationCode-GUARANTEED_IRISH
+      voc:PackagingMarkedLabelAccreditationCode-KRAV_MARK
+      voc:PackagingMarkedLabelAccreditationCode-LABEL_OF_THE_ALLERGY_AND_ASTHMA_FEDERATION
+      voc:PackagingMarkedLabelAccreditationCode-LEAPING_BUNNY
+      voc:PackagingMarkedLabelAccreditationCode-LOODUSSOBRALIK_TOODE_ESTONIA
+      voc:PackagingMarkedLabelAccreditationCode-LOVE_IRISH_FOOD
+      voc:PackagingMarkedLabelAccreditationCode-MADE_IN_FINLAND_FLAG_WITH_KEY
+      voc:PackagingMarkedLabelAccreditationCode-MARINE_STEWARDSHIP_COUNCIL_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-MAX_HAVELAAR
+      voc:PackagingMarkedLabelAccreditationCode-NATRUE_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-NYCKELHALET
+      voc:PackagingMarkedLabelAccreditationCode-OEKO_TEX_LABEL
+      voc:PackagingMarkedLabelAccreditationCode-OFFICIAL_ECO_LABEL_SUN
+      voc:PackagingMarkedLabelAccreditationCode-PEFC
+      voc:PackagingMarkedLabelAccreditationCode-PROTECTED_DESIGNATION_OF_ORIGIN
+      voc:PackagingMarkedLabelAccreditationCode-PROTECTED_GEOGRAPHICAL_INDICATION
+      voc:PackagingMarkedLabelAccreditationCode-PROTECTED_HARVEST_CERTIFIED
+      voc:PackagingMarkedLabelAccreditationCode-QUALITY_MARK_IRELAND
+      voc:PackagingMarkedLabelAccreditationCode-RAINFOREST_ALLIANCE
+      voc:PackagingMarkedLabelAccreditationCode-SCHARRELVLEES
+      voc:PackagingMarkedLabelAccreditationCode-SOIL_ASSOCIATION_ORGANIC_SYMBOL
+      voc:PackagingMarkedLabelAccreditationCode-SUSTAINABLE_PALM_OIL_RSPO
+      voc:PackagingMarkedLabelAccreditationCode-SVANEN
+      voc:PackagingMarkedLabelAccreditationCode-SWEDISH_SEAL_OF_QUALITY
+      voc:PackagingMarkedLabelAccreditationCode-TRADITIONAL_SPECIALTY_GUARANTEED
+      voc:PackagingMarkedLabelAccreditationCode-TUNNUSTATUD_EESTI_MAITSE
+      voc:PackagingMarkedLabelAccreditationCode-TUNNUSTATUD_MAITSE
+      voc:PackagingMarkedLabelAccreditationCode-UNIQUELY_FINNISH
+      voc:PackagingMarkedLabelAccreditationCode-USDA
+      voc:PackagingMarkedLabelAccreditationCode-UTZ_CERTIFIED
+      voc:PackagingMarkedLabelAccreditationCode-VAELG_FULDKORN_FORST
+      voc:PackagingMarkedLabelAccreditationCode-WWF_PANDA_LABEL
+    ) ;
+.
+
+voc:PackagingMaterialTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PackagingMaterialTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PackagingMaterialTypeCode-BAMBOO
+      voc:PackagingMaterialTypeCode-CELLULOSE_HYDRATE
+      voc:PackagingMaterialTypeCode-CERAMIC
+      voc:PackagingMaterialTypeCode-CLOTH_OR_FABRIC
+      voc:PackagingMaterialTypeCode-COMPOSITE
+      voc:PackagingMaterialTypeCode-CORK_NATURAL
+      voc:PackagingMaterialTypeCode-CORRUGATED_BOARD_DOUBLE_WALL
+      voc:PackagingMaterialTypeCode-CORRUGATED_BOARD_OTHER
+      voc:PackagingMaterialTypeCode-CORRUGATED_BOARD_SINGLE_WALL
+      voc:PackagingMaterialTypeCode-CORRUGATED_BOARD_TRIPLE_WALL
+      voc:PackagingMaterialTypeCode-FIBRE_BURLAP
+      voc:PackagingMaterialTypeCode-FIBRE_COTTON
+      voc:PackagingMaterialTypeCode-FIBRE_FLAX
+      voc:PackagingMaterialTypeCode-FIBRE_HEMP
+      voc:PackagingMaterialTypeCode-FIBRE_JUTE
+      voc:PackagingMaterialTypeCode-FIBRE_OTHER
+      voc:PackagingMaterialTypeCode-FOAM
+      voc:PackagingMaterialTypeCode-GLASS
+      voc:PackagingMaterialTypeCode-GLASS_BOROSILICATE
+      voc:PackagingMaterialTypeCode-GLASS_COLOURED
+      voc:PackagingMaterialTypeCode-GLASS_CRYSTAL
+      voc:PackagingMaterialTypeCode-LAMINATED_CARTON
+      voc:PackagingMaterialTypeCode-METAL_ALUMINUM
+      voc:PackagingMaterialTypeCode-METAL_BRASS
+      voc:PackagingMaterialTypeCode-METAL_COMPOSITE
+      voc:PackagingMaterialTypeCode-METAL_IRON
+      voc:PackagingMaterialTypeCode-METAL_LEAD
+      voc:PackagingMaterialTypeCode-METAL_OTHER
+      voc:PackagingMaterialTypeCode-METAL_STAINLESS_STEEL
+      voc:PackagingMaterialTypeCode-METAL_STEEL
+      voc:PackagingMaterialTypeCode-METAL_TIN
+      voc:PackagingMaterialTypeCode-METAL_ZAMAC
+      voc:PackagingMaterialTypeCode-MINERAL_CALCIUM_CARBONATE
+      voc:PackagingMaterialTypeCode-MINERAL_OTHER
+      voc:PackagingMaterialTypeCode-MINERAL_TALC
+      voc:PackagingMaterialTypeCode-NATURAL_RUBBER
+      voc:PackagingMaterialTypeCode-OTHER
+      voc:PackagingMaterialTypeCode-PAPER_CORRUGATED
+      voc:PackagingMaterialTypeCode-PAPER_KRAFT
+      voc:PackagingMaterialTypeCode-PAPER_KRAFT_WET_STRENGTH
+      voc:PackagingMaterialTypeCode-PAPER_MOLDED_PULP
+      voc:PackagingMaterialTypeCode-PAPER_OTHER
+      voc:PackagingMaterialTypeCode-PAPER_PAPER
+      voc:PackagingMaterialTypeCode-PAPER_PAPERBOARD
+      voc:PackagingMaterialTypeCode-PAPER_RAYON
+      voc:PackagingMaterialTypeCode-PLANT_LEAVES
+      voc:PackagingMaterialTypeCode-PLASTIC_BIOPLASTIC
+      voc:PackagingMaterialTypeCode-PLASTIC_OTHER
+      voc:PackagingMaterialTypeCode-PLASTIC_THERMOPLASTICS
+      voc:PackagingMaterialTypeCode-POLYMER_APET
+      voc:PackagingMaterialTypeCode-POLYMER_BOPP
+      voc:PackagingMaterialTypeCode-POLYMER_CELLULOSE_ACETATE
+      voc:PackagingMaterialTypeCode-POLYMER_CPET
+      voc:PackagingMaterialTypeCode-POLYMER_EPE
+      voc:PackagingMaterialTypeCode-POLYMER_EPOXY
+      voc:PackagingMaterialTypeCode-POLYMER_EPS
+      voc:PackagingMaterialTypeCode-POLYMER_EVA
+      voc:PackagingMaterialTypeCode-POLYMER_EVOH
+      voc:PackagingMaterialTypeCode-POLYMER_HDPE
+      voc:PackagingMaterialTypeCode-POLYMER_IONOMER
+      voc:PackagingMaterialTypeCode-POLYMER_LDPE
+      voc:PackagingMaterialTypeCode-POLYMER_LLDPE
+      voc:PackagingMaterialTypeCode-POLYMER_MDPE
+      voc:PackagingMaterialTypeCode-POLYMER_MIX
+      voc:PackagingMaterialTypeCode-POLYMER_NYLON
+      voc:PackagingMaterialTypeCode-POLYMER_OPP
+      voc:PackagingMaterialTypeCode-POLYMER_OTHER
+      voc:PackagingMaterialTypeCode-POLYMER_PA
+      voc:PackagingMaterialTypeCode-POLYMER_PAN
+      voc:PackagingMaterialTypeCode-POLYMER_PC
+      voc:PackagingMaterialTypeCode-POLYMER_PCL
+      voc:PackagingMaterialTypeCode-POLYMER_PE
+      voc:PackagingMaterialTypeCode-POLYMER_PEN
+      voc:PackagingMaterialTypeCode-POLYMER_PET
+      voc:PackagingMaterialTypeCode-POLYMER_PETG
+      voc:PackagingMaterialTypeCode-POLYMER_PHA
+      voc:PackagingMaterialTypeCode-POLYMER_PLA
+      voc:PackagingMaterialTypeCode-POLYMER_PMMA
+      voc:PackagingMaterialTypeCode-POLYMER_POM
+      voc:PackagingMaterialTypeCode-POLYMER_PP
+      voc:PackagingMaterialTypeCode-POLYMER_PS
+      voc:PackagingMaterialTypeCode-POLYMER_PU
+      voc:PackagingMaterialTypeCode-POLYMER_PVA
+      voc:PackagingMaterialTypeCode-POLYMER_PVC
+      voc:PackagingMaterialTypeCode-POLYMER_PVDC
+      voc:PackagingMaterialTypeCode-POLYMER_SAN
+      voc:PackagingMaterialTypeCode-POLYMER_SILICONE
+      voc:PackagingMaterialTypeCode-POLYMER_TPS
+      voc:PackagingMaterialTypeCode-POLYMER_XPS
+      voc:PackagingMaterialTypeCode-RUBBER
+      voc:PackagingMaterialTypeCode-VINYL
+      voc:PackagingMaterialTypeCode-WOOD_HARDBOARD
+      voc:PackagingMaterialTypeCode-WOOD_HARDWOOD
+      voc:PackagingMaterialTypeCode-WOOD_MEDIUM_DENSITY_FIBREBOARD
+      voc:PackagingMaterialTypeCode-WOOD_ORIENTED_STRANDBOARD
+      voc:PackagingMaterialTypeCode-WOOD_OTHER
+      voc:PackagingMaterialTypeCode-WOOD_PARTICLE_BOARD
+      voc:PackagingMaterialTypeCode-WOOD_PLYWOOD
+      voc:PackagingMaterialTypeCode-WOOD_SOFTWOOD
+    ) ;
+.
+
+voc:PaymentMethodShape
+  a sh:NodeShape ;
+  sh:targetClass voc:PaymentMethod ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:PaymentMethod-BANKERS_DRAFT
+      voc:PaymentMethod-BANK_CHEQUE
+      voc:PaymentMethod-BANK_GIRO
+      voc:PaymentMethod-BOOKENTRY_CREDIT
+      voc:PaymentMethod-BOOKENTRY_DEBIT
+      voc:PaymentMethod-BOP
+      voc:PaymentMethod-CASH
+      voc:PaymentMethod-CERTIFIED_CHEQUE
+      voc:PaymentMethod-CHEQUE
+      voc:PaymentMethod-CREDIT_CARD
+      voc:PaymentMethod-CREDIT_CARD_AMEX
+      voc:PaymentMethod-CREDIT_CARD_DINERS_CLUB
+      voc:PaymentMethod-CREDIT_CARD_DISCOVER
+      voc:PaymentMethod-CREDIT_CARD_MASTERCARD
+      voc:PaymentMethod-CREDIT_CARD_VISA
+      voc:PaymentMethod-DEBIT_CARD
+      voc:PaymentMethod-DEBIT_CARD_MAESTRO
+      voc:PaymentMethod-DEBIT_CARD_MASTERCARD
+      voc:PaymentMethod-DEBIT_CARD_VISA
+      voc:PaymentMethod-DEBIT_CARD_VISA_ELECTRON
+      voc:PaymentMethod-ELECTRONIC_CREDIT_ACH
+      voc:PaymentMethod-ELECTRONIC_DEBIT_ACH
+      voc:PaymentMethod-FED_WIRE_NON_REPETITIVE
+      voc:PaymentMethod-FED_WIRE_REPETITIVE
+      voc:PaymentMethod-INTERNATIONAL_WIRE
+      voc:PaymentMethod-LETTER_OF_CREDIT
+      voc:PaymentMethod-ONLINE_PAYMENT
+      voc:PaymentMethod-ONLINE_PAYMENT_APPLE_PAY
+      voc:PaymentMethod-ONLINE_PAYMENT_GOOGLE_WALLET
+      voc:PaymentMethod-ONLINE_PAYMENT_PAYPAL
+      voc:PaymentMethod-POSTGIRO
+      voc:PaymentMethod-WIRE_TRANSFER_CREDIT
+      voc:PaymentMethod-WIRE_TRANSFER_DEBIT
+    ) ;
+.
+
+voc:ProductYieldTypeCodeShape 
+  a sh:NodeShape ;
+  sh:targetClass voc:ProductYieldTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:ProductYieldTypeCode-AFTER_COOKING
+      voc:ProductYieldTypeCode-AFTER_DILUTION
+      voc:ProductYieldTypeCode-DRAINED_WEIGHT
+      voc:ProductYieldTypeCode-UNSPECIFIED
+    ) ;
+.
+
+voc:ReferenceFileTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:ReferencedFileTypeCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:ReferencedFileTypeCode-360_DEGREE_IMAGE
+      voc:ReferencedFileTypeCode-AMBIENCE_MOOD_IMAGE
+      voc:ReferencedFileTypeCode-APPLICATION_IMAGE
+      voc:ReferencedFileTypeCode-ASSEMBLY_INSTRUCTIONS
+      voc:ReferencedFileTypeCode-AUDIO
+      voc:ReferencedFileTypeCode-AWARD_CERTIFICATE
+      voc:ReferencedFileTypeCode-BARCODE
+      voc:ReferencedFileTypeCode-CERTIFICATION
+      voc:ReferencedFileTypeCode-CHEMICAL_ASSESSMENT_SUMMARY
+      voc:ReferencedFileTypeCode-CHEMICAL_SAFETY_REPORT
+      voc:ReferencedFileTypeCode-CHILD_NUTRITION_LABEL
+      voc:ReferencedFileTypeCode-CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS 
+      voc:ReferencedFileTypeCode-CLINICIAN_MEDICINE_INFORMATION
+      voc:ReferencedFileTypeCode-CONSUMER_HANDLING_AND_STORAGE
+      voc:ReferencedFileTypeCode-CONTENT_TEXTURE_IMAGE
+      voc:ReferencedFileTypeCode-CROSSSECTION_VIEW
+      voc:ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY
+      voc:ReferencedFileTypeCode-DIET_CERTIFICATE
+      voc:ReferencedFileTypeCode-DISPOSAL_INSTRUCTIONS
+      voc:ReferencedFileTypeCode-DOCUMENT
+      voc:ReferencedFileTypeCode-DOP_SHEET
+      voc:ReferencedFileTypeCode-DRUG_FACT_LABEL
+      voc:ReferencedFileTypeCode-ECOLOGICAL_FACT_SHEET
+      voc:ReferencedFileTypeCode-ENERGY_LABEL
+      voc:ReferencedFileTypeCode-FOOD_CONTACT_CONFORMITY_CERTIFICATE
+      voc:ReferencedFileTypeCode-GROUP_CHARACTERISTIC_SHEET
+      voc:ReferencedFileTypeCode-HAZARDOUS_SUBSTANCES_DATA
+      voc:ReferencedFileTypeCode-IFU voc:ReferencedFileTypeCode-IFU_INCLUDING_CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS
+      voc:ReferencedFileTypeCode-INGREDIENTS_LABEL
+      voc:ReferencedFileTypeCode-INTERNAL_VIEW
+      voc:ReferencedFileTypeCode-LIGHTING_FACT_LABEL
+      voc:ReferencedFileTypeCode-LOGO
+      voc:ReferencedFileTypeCode-MARKETING_INFORMATION
+      voc:ReferencedFileTypeCode-MATERIAL_SAMPLES
+      voc:ReferencedFileTypeCode-MOBILE_DEVICE_IMAGE
+      voc:ReferencedFileTypeCode-MOBILE_READY_HERO_IMAGE
+      voc:ReferencedFileTypeCode-MONTAGE_IMAGE
+      voc:ReferencedFileTypeCode-NUTRITION_FACT_LABEL
+      voc:ReferencedFileTypeCode-NUTRITION_FACT_LABEL_WITH_INGREDIENTS
+      voc:ReferencedFileTypeCode-OPTIMIZED_PACK_IMAGE
+      voc:ReferencedFileTypeCode-ORGANIC_CERTIFICATE
+      voc:ReferencedFileTypeCode-OTHER_EXTERNAL_INFORMATION
+      voc:ReferencedFileTypeCode-OUT_OF_PACKAGE_IMAGE
+      voc:ReferencedFileTypeCode-PACKAGING_ARTWORK
+      voc:ReferencedFileTypeCode-PATIENT_INFORMATION_LEAFLET
+      voc:ReferencedFileTypeCode-PETFOOD_FEEDING_INSTRUCTIONS
+      voc:ReferencedFileTypeCode-PLANOGRAM
+      voc:ReferencedFileTypeCode-PREPARATION_INSTRUCTIONS
+      voc:ReferencedFileTypeCode-PRODUCT_FORMULATION_STATEMENT
+      voc:ReferencedFileTypeCode-PRODUCT_IMAGE
+      voc:ReferencedFileTypeCode-PRODUCT_IMAGE_FORMED
+      voc:ReferencedFileTypeCode-PRODUCT_LABEL_IMAGE
+      voc:ReferencedFileTypeCode-PRODUCT_WEBSITE
+      voc:ReferencedFileTypeCode-QR_CODE
+      voc:ReferencedFileTypeCode-QUALITY_CONTROL_PLAN
+      voc:ReferencedFileTypeCode-RECIPE_WEBSITE
+      voc:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE
+      voc:ReferencedFileTypeCode-REGULATORY_INSPECTION_AUDIT
+      voc:ReferencedFileTypeCode-RISK_ANALYSIS_DOCUMENT
+      voc:ReferencedFileTypeCode-SAFETY_DATA_SHEET
+      voc:ReferencedFileTypeCode-SAFETY_SUMMARY_SHEET
+      voc:ReferencedFileTypeCode-SAMPLE_SHIPPING_ORDER
+      voc:ReferencedFileTypeCode-SIDEKICK_IMAGE
+      voc:ReferencedFileTypeCode-SOCIAL_MEDIA_IMAGE
+      voc:ReferencedFileTypeCode-SUMMARY_OF_PRODUCT_CHARACTERISTICS
+      voc:ReferencedFileTypeCode-SUPPLEMENT_FACT_LABEL
+      voc:ReferencedFileTypeCode-TECHNICAL_DATA_SHEET
+      voc:ReferencedFileTypeCode-TECHNICAL_DRAWING
+      voc:ReferencedFileTypeCode-TESTING_METHODOLOGY_RESULTS
+      voc:ReferencedFileTypeCode-TRADE_ITEM_DESCRIPTION
+      voc:ReferencedFileTypeCode-TRADE_ITEM_IMAGE_WITH_DIMENSIONS
+      voc:ReferencedFileTypeCode-VIDEO
+      voc:ReferencedFileTypeCode-VISUAL_VERIFICATION_IMAGE
+      voc:ReferencedFileTypeCode-WARRANTY_INFORMATION
+      voc:ReferencedFileTypeCode-WEBSITE
+      voc:ReferencedFileTypeCode-ZOOM_VIEW
+    ) ;
+.
+
+voc:RegulatoryIdentifierTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:RegulatoryIdentifierType;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT
+    ) ;
+.
+
+voc:RegulationTypeCodeShape 
+  a sh:NodeShape ;
+  sh:targetClass voc:RegulationTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+voc:RegulationTypeCode-AEROSOL_REVERSE_EPSILON
+voc:RegulationTypeCode-AGRICULTURE_PROTECTION_REGULATION
+voc:RegulationTypeCode-ANIMAL_ID_HEALTH_MARK
+voc:RegulationTypeCode-BATTERY_DIRECTIVE
+voc:RegulationTypeCode-BIOCIDE_REGULATION
+voc:RegulationTypeCode-BPA_REGULATION
+voc:RegulationTypeCode-BUY_AMERICAN_ACT
+voc:RegulationTypeCode-BUY_AMERICAN_PROVISION_USDA
+voc:RegulationTypeCode-CE
+voc:RegulationTypeCode-COMPLIANT_WITH_FAIR_LABOR_STANDARDS_ACT
+voc:RegulationTypeCode-COMPLIANT_WITH_FLAMMABILITY_ACT
+voc:RegulationTypeCode-COMPLIANT_WITH_FUR_PRODUCT_LABELING_ACT
+voc:RegulationTypeCode-COMPLIANT_WITH_STATE_ENVIRONMENT_REQUIREMENTS
+voc:RegulationTypeCode-COMPLIANT_WITH_TEXTILE_FIBER_PRODUCT_IDENTIFICATION
+voc:RegulationTypeCode-COMPLIANT_WITH_WOOL_PRODUCTS_LABELING_ACT
+voc:RegulationTypeCode-CONSUMER_PRODUCT_SAFETY
+voc:RegulationTypeCode-CONTAINS_COMPOSITE_WOOD
+voc:RegulationTypeCode-COSMETIC_INFORMATION_REGULATION
+voc:RegulationTypeCode-DECLARATION_OF_PERFORMANCE_REQUIRED
+voc:RegulationTypeCode-DEFORESTATION_REGULATION
+voc:RegulationTypeCode-DETERGENTS_SAFETY_REGULATION
+voc:RegulationTypeCode-EFFICIENCY_OF_LAMPS_LUMINARIES
+voc:RegulationTypeCode-EMC_DIRECTIVE
+voc:RegulationTypeCode-ENCLOSED_ATTACHED_INFORMATION
+voc:RegulationTypeCode-ENERGY_GUIDE_LABEL_REQUIRED
+voc:RegulationTypeCode-EU_REGULATION_FOR_FOODSTUFF
+voc:RegulationTypeCode-EXPLOSIVES_PRECURSORS_REGISTRATION
+voc:RegulationTypeCode-EXPLOSIVES_PRECURSORS_REPORTING
+voc:RegulationTypeCode-E_MARK
+voc:RegulationTypeCode-FEED_SAFETY_REGULATION
+voc:RegulationTypeCode-FOOD_FOR_SPECIAL_PURPOSES
+voc:RegulationTypeCode-FOOD_INFORMATION_REGULATION
+voc:RegulationTypeCode-FOOD_LABELLING_UNDER_2_YEARS_OF_AGE
+voc:RegulationTypeCode-FOOD_LABELLING_UNDER_4_YEARS_OF_AGE
+voc:RegulationTypeCode-FOOD_SUPPLEMENT_DIRECTIVE
+voc:RegulationTypeCode-FREE_PHARMACEUTICAL_PRODUCTS_DIRECTIVE
+voc:RegulationTypeCode-FRENCH_SPARE_PARTS_REGULATION
+voc:RegulationTypeCode-HAZARDS_CLASSIFICATION_LABELLING_REGULATION
+voc:RegulationTypeCode-HERBICIDE_REGULATION
+voc:RegulationTypeCode-INFANT_FORMULA_LABELLING
+voc:RegulationTypeCode-INTENDED_TO_COME_INTO_CONTACT_WITH_FOOD
+voc:RegulationTypeCode-LVD_DIRECTIVE
+voc:RegulationTypeCode-MARKET_AUTHORISATION
+voc:RegulationTypeCode-MEDICAL_DEVICE_SAFETY
+voc:RegulationTypeCode-MINIMUM_DURABILITY
+voc:RegulationTypeCode-NANO_MATERIALS_PRESENCE
+voc:RegulationTypeCode-NOT_APPLICABLE
+voc:RegulationTypeCode-PACKAGING_SAFETY_DIRECTIVE
+voc:RegulationTypeCode-PERIOD_SAFE_TO_USE_AFTER_OPENING
+voc:RegulationTypeCode-PESTICIDE_REGULATION
+voc:RegulationTypeCode-PHARMACEUTICAL_PRODUCT_DIRECTIVE
+voc:RegulationTypeCode-PLASTIC_DIRECTIVE
+voc:RegulationTypeCode-PRODUCT_LABELING_REGULATION
+voc:RegulationTypeCode-PRODUCT_OF_DAILY_USE_DIRECTIVE
+voc:RegulationTypeCode-PROP_65
+voc:RegulationTypeCode-REGULATED_BY_AGENCY
+voc:RegulationTypeCode-RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE
+voc:RegulationTypeCode-ROHS_DIRECTIVE
+voc:RegulationTypeCode-SAFETY_DATA_SHEET_REQUIRED
+voc:RegulationTypeCode-SCATTERED_POLLUTION_REGULATION
+voc:RegulationTypeCode-SECURITY_OF_ELECTRONIC_PRODUCTS_DIRECTIVE
+voc:RegulationTypeCode-SMALL_PARTS
+voc:RegulationTypeCode-TEXTILE_LABELLING_REGULATION
+voc:RegulationTypeCode-TOBACCO_DIRECTIVE
+voc:RegulationTypeCode-TOY_SAFETY_DIRECTIVE
+voc:RegulationTypeCode-TRACEABILITY_REGULATION
+voc:RegulationTypeCode-TRADE_ITEM_CONSIDERED_UNPACKED
+voc:RegulationTypeCode-TRADE_ITEM_TESTED_DIRECTIVE
+voc:RegulationTypeCode-TREATED_WITH_BIOCIDE_REGULATION
+voc:RegulationTypeCode-TREATED_WITH_HERBICIDE_REGULATION
+voc:RegulationTypeCode-TREATED_WITH_PESTICIDE_REGULATION
+voc:RegulationTypeCode-UK_CONFORMITY_ASSESSED
+voc:RegulationTypeCode-UNDERWATER_LIGHTING
+voc:RegulationTypeCode-UNSPECIFIED voc:RegulationTypeCode-UVA
+voc:RegulationTypeCode-VEHICLE_LICENSE_PLATE_REGISTRATION
+voc:RegulationTypeCode-VEHICLE_LIGHTING_COMPLIANT
+voc:RegulationTypeCode-VOLATILE_ORGANIC_COMPOUND_COMPLIANT
+voc:RegulationTypeCode-WARRANTY_REQUIREMENTS
+    ) ;
+.
+
+voc:SharpnessOfCheeseCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SharpnessOfCheeseCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SharpnessOfCheeseCode-EXTRA_EXTRA_SHARP
+      voc:SharpnessOfCheeseCode-EXTRA_SHARP
+      voc:SharpnessOfCheeseCode-MILD
+      voc:SharpnessOfCheeseCode-REGULAR
+      voc:SharpnessOfCheeseCode-SHARP
+      voc:SharpnessOfCheeseCode-UNCLASSIFIED
+    ) ;
+.
+
+voc:SourceAnimalCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SourceAnimalCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SourceAnimalCode-ALLIGATOR
+      voc:SourceAnimalCode-ASS
+      voc:SourceAnimalCode-BEAR
+      voc:SourceAnimalCode-BEEF_COW
+      voc:SourceAnimalCode-BOAR
+      voc:SourceAnimalCode-BUFFALO
+      voc:SourceAnimalCode-CALF
+      voc:SourceAnimalCode-CAMEL
+      voc:SourceAnimalCode-CHICKEN
+      voc:SourceAnimalCode-COCKEREL
+      voc:SourceAnimalCode-COW
+      voc:SourceAnimalCode-CROCODILE
+      voc:SourceAnimalCode-DEER
+      voc:SourceAnimalCode-DOG
+      voc:SourceAnimalCode-DUCK
+      voc:SourceAnimalCode-DUCKLING
+      voc:SourceAnimalCode-FISH
+      voc:SourceAnimalCode-FOWL
+      voc:SourceAnimalCode-FROG
+      voc:SourceAnimalCode-GOAT
+      voc:SourceAnimalCode-GOOSE
+      voc:SourceAnimalCode-GROUSE
+      voc:SourceAnimalCode-GUINEAFOWL
+      voc:SourceAnimalCode-HARE
+      voc:SourceAnimalCode-HORSE
+      voc:SourceAnimalCode-INVERTEBRATE
+      voc:SourceAnimalCode-LAMB
+      voc:SourceAnimalCode-LAND_SNAIL
+      voc:SourceAnimalCode-MILK_COW
+      voc:SourceAnimalCode-MOOSE
+      voc:SourceAnimalCode-OSTRICH
+      voc:SourceAnimalCode-OTHER
+      voc:SourceAnimalCode-PARTRIDGE
+      voc:SourceAnimalCode-PHEASANT
+      voc:SourceAnimalCode-PIGEON
+      voc:SourceAnimalCode-PORK
+      voc:SourceAnimalCode-POUSSIN
+      voc:SourceAnimalCode-QUAIL
+      voc:SourceAnimalCode-RABBIT
+      voc:SourceAnimalCode-RAT
+      voc:SourceAnimalCode-REINDEER
+      voc:SourceAnimalCode-ROE_DEER
+      voc:SourceAnimalCode-SHEEP
+      voc:SourceAnimalCode-SHELLFISH
+      voc:SourceAnimalCode-SNAKE
+      voc:SourceAnimalCode-SNIPE
+      voc:SourceAnimalCode-SPARROW
+      voc:SourceAnimalCode-THRUSH
+      voc:SourceAnimalCode-TURKEY
+      voc:SourceAnimalCode-TURTLE
+      voc:SourceAnimalCode-WOODCOCK
+      voc:SourceAnimalCode-YAK
+    ) ;
+.
+
+voc:SportingActivityTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SportingActivityTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SportingActivityTypeCode-AMERICAN_FOOTBALL
+      voc:SportingActivityTypeCode-ARCHERY
+      voc:SportingActivityTypeCode-BADMINTON
+      voc:SportingActivityTypeCode-BASEBALL
+      voc:SportingActivityTypeCode-BASKETBALL
+      voc:SportingActivityTypeCode-BOXING
+      voc:SportingActivityTypeCode-CLIMBING
+      voc:SportingActivityTypeCode-CRICKET
+      voc:SportingActivityTypeCode-CYCLING
+      voc:SportingActivityTypeCode-DIVING
+      voc:SportingActivityTypeCode-EQUESTRIAN
+      voc:SportingActivityTypeCode-FENCING
+      voc:SportingActivityTypeCode-FISHING
+      voc:SportingActivityTypeCode-FOOTBALL
+      voc:SportingActivityTypeCode-GOLF
+      voc:SportingActivityTypeCode-GYMNASTICS
+      voc:SportingActivityTypeCode-HOCKEY
+      voc:SportingActivityTypeCode-ICE_HOCKEY
+      voc:SportingActivityTypeCode-ICE_SKATING
+      voc:SportingActivityTypeCode-MOTOR_CYCLING
+      voc:SportingActivityTypeCode-RUGBY
+      voc:SportingActivityTypeCode-RUNNING
+      voc:SportingActivityTypeCode-SKIING
+      voc:SportingActivityTypeCode-SQUASH
+      voc:SportingActivityTypeCode-SURFING
+      voc:SportingActivityTypeCode-SWIMMING
+      voc:SportingActivityTypeCode-TENNIS
+      voc:SportingActivityTypeCode-UNCLASSIFIED
+      voc:SportingActivityTypeCode-UNIDENTIFIED
+    ) ;
+.
+
+voc:SecurityMarkingShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SecurityMarking;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SecurityMarking-HOLOGRAM
+      voc:SecurityMarking-MICROPRINTING
+      voc:SecurityMarking-UVINK
+      voc:SecurityMarking-WATERMARK
+    ) ;
+.
+
+voc:SizeGroupCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SizeGroupCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SizeGroupCode-BOYS
+      voc:SizeGroupCode-GIRLS
+      voc:SizeGroupCode-INFANTS
+      voc:SizeGroupCode-JUNIORS
+      voc:SizeGroupCode-MATERNITY
+      voc:SizeGroupCode-MENS
+      voc:SizeGroupCode-MENS_TALL
+      voc:SizeGroupCode-MISSES
+      voc:SizeGroupCode-PETITE
+      voc:SizeGroupCode-WOMENS
+      voc:SizeGroupCode-WOMENS_TALL
+    ) ;
+.
+
+voc:SizeSystemCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SizeSystemCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SizeSystemCode-AUSTRALIA
+      voc:SizeSystemCode-CONTINENTAL
+      voc:SizeSystemCode-EUROPE
+      voc:SizeSystemCode-JAPAN
+      voc:SizeSystemCode-MEXICO
+      voc:SizeSystemCode-UK
+      voc:SizeSystemCode-US
+    ) ;
+.
+
+voc:SizeTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SizeTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SizeTypeCode-BACK
+      voc:SizeTypeCode-CHEST_BUST
+      voc:SizeTypeCode-COLLAR
+      voc:SizeTypeCode-CUP
+      voc:SizeTypeCode-HIPS
+      voc:SizeTypeCode-INSEAM
+      voc:SizeTypeCode-LENGTH
+      voc:SizeTypeCode-ONE_DIMENSION
+      voc:SizeTypeCode-OUTSIDE_LEG
+      voc:SizeTypeCode-SLEEVE
+      voc:SizeTypeCode-WAIST
+      voc:SizeTypeCode-WIDTH
+    ) ;
+.
+
+voc:SweetnessLevelOfAlcoholicBeverageCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SweetnessLevelOfAlcoholicBeverageCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+     voc:SweetnessLevelOfAlcoholicBeverageCode-BRUT
+     voc:SweetnessLevelOfAlcoholicBeverageCode-BRUT_NATURE
+     voc:SweetnessLevelOfAlcoholicBeverageCode-DRY
+     voc:SweetnessLevelOfAlcoholicBeverageCode-EXTRA_BRUT
+     voc:SweetnessLevelOfAlcoholicBeverageCode-EXTRA_DRY
+     voc:SweetnessLevelOfAlcoholicBeverageCode-MEDIUM
+     voc:SweetnessLevelOfAlcoholicBeverageCode-MEDIUM_DRY
+     voc:SweetnessLevelOfAlcoholicBeverageCode-OFF_DRY
+     voc:SweetnessLevelOfAlcoholicBeverageCode-OTHER
+     voc:SweetnessLevelOfAlcoholicBeverageCode-SWEET
+    ) ;
+.
+
+voc:SeasonParameterCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:SeasonParameterCode;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:SeasonParameterCode-ALL_YEAR
+      voc:SeasonParameterCode-AUTUMN
+      voc:SeasonParameterCode-AUTUMN_WINTER
+      voc:SeasonParameterCode-SPRING
+      voc:SeasonParameterCode-SPRING_SUMMER
+      voc:SeasonParameterCode-SUMMER
+      voc:SeasonParameterCode-WINTER
+    ) ;
+.
+
+voc:TargetConsumerGenderCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:TargetConsumerGenderCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:TargetConsumerGenderCode-FEMALE
+      voc:TargetConsumerGenderCode-MALE
+      voc:TargetConsumerGenderCode-UNISEX
+    ) ;
+.
+
+voc:UpperTypeCodeShape
+  a sh:NodeShape ;
+  sh:targetClass voc:UpperTypeCode ;
+  sh:nodeKind sh:IRI ;
+  sh:in (
+      voc:UpperTypeCode-CLOSED_TOE_CLOSED_BACK_OPEN_INSTEP
+      voc:UpperTypeCode-CLOSED_TOE_OPEN_BACK
+      voc:UpperTypeCode-CLOSED_TOE_STRAP_BACK
+      voc:UpperTypeCode-FULLY_CLOSED
+      voc:UpperTypeCode-OPEN_TOE_FULLY_CLOSED_BACK
+      voc:UpperTypeCode-OPEN_TOE_OPEN_BACK
+      voc:UpperTypeCode-OPEN_TOE_STRAP_BACK
+      voc:UpperTypeCode-UNCLASSIFIED
+    ) ;
+.
+
+
+
+
